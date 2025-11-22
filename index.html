@@ -369,9 +369,7 @@
         }
     </script>
 </head>
-<body onload="requestNotificationPermission()">
-
-    <div class="header">
+<body onload="initializeApp()"> <div class="header">
         <h1>💊 תוכנית תוספים יומית 🌿</h1>
         <p style="color: #6c757d; font-size: 1.1em;">עבור: **איתן**</p>
     </div>
@@ -380,7 +378,7 @@
         
         <div class="intro-section">
             <p>התוכנית נבנתה במיוחד כדי לתמוך ב<span class="clickable-term" onclick="showPopup('איזון מערכת העצבים', 'המטרה היא להעביר את הגוף ממצב \'הילחם או ברח\' למצב \'מנוחה ועיכול\'.')">איזון מערכת העצבים</span>. זהו פרוטוקול טיפולי זמני ל־**8–12 שבועות**, שמטרתו לפרק בהדרגה את מעגל הסטרס.</p>
-            <p>**תזכורת:** הוגדרו 8 שעונים מעוררים יומיים במכשיר שיספקו התראות מדויקות.</p>
+            <p id="notification-status">**תזכורת:** הוגדרו 8 שעונים מעוררים יומיים במכשיר שיספקו התראות מדויקות.</p>
         </div>
 
         <h2>🎯 היעדים המרכזיים</h2>
@@ -418,10 +416,10 @@
                 </div>
             </div>
             
-            <div class="supplement-card psyllium-card" onclick="showPopup('פסיליום (פעם 1)', 'תפקיד: סיבים תזונתיים לאיזון שומנים (לכידת כולסטרול במעי) וסוכר.\n**חובה**: לערבב במים ולשתות **מיד**. לשתות עוד מים לאחר מכן.\nזמן: **10:00**, בין ארוחות.')">
+            <div class="supplement-card psyllium-card" onclick="showPopup('פסיליום (פעם 1)', 'תפקיד: סיבים תזונתיים לאיזון שומנים (לכידת כולסטרול במעי) וסוכר.\n**מינון**: 5 גר׳ (~1 כפית גדושה).\n**חובה**: לערבב במים ולשתות **מיד**. לשתות עוד מים לאחר מכן.\nזמן: **10:00**, בין ארוחות.')">
                 <div class="card-title">פסיליום (1/2)</div>
                 <div class="card-details">
-                    <div class="dose">מינון: 5 גר׳</div>
+                    <div class="dose">מינון: 5 גר׳ (~1 כפית)</div>
                     <div class="time">זמן: 10:00, עם מים</div>
                 </div>
             </div>
@@ -444,10 +442,10 @@
 
         <h3 style="color: #6c757d;">🌙 ערב (הרגעה ושינה)</h3>
         <div class="supplements-grid">
-            <div class="supplement-card psyllium-card" onclick="showPopup('פסיליום (פעם 2)', 'תפקיד: סיבים תזונתיים לאיזון שומנים וסוכר.\n**חובה**: לערבב במים ולשתות **מיד**. לשתות עוד מים לאחר מכן.\nזמן: **19:00**, לפני תוספי שינה.')">
+            <div class="supplement-card psyllium-card" onclick="showPopup('פסיליום (פעם 2)', 'תפקיד: סיבים תזונתיים לאיזון שומנים וסוכר.\n**מינון**: 5 גר׳ (~1 כפית גדושה).\n**חובה**: לערבב במים ולשתות **מיד**. לשתות עוד מים לאחר מכן.\nזמן: **19:00**, לפני תוספי שינה.')">
                 <div class="card-title">פסיליום (2/2)</div>
                 <div class="card-details">
-                    <div class="dose">מינון: 5 גר׳</div>
+                    <div class="dose">מינון: 5 גר׳ (~1 כפית)</div>
                     <div class="time">זמן: 19:00, עם מים</div>
                 </div>
             </div>
@@ -501,7 +499,7 @@
 
                 <div class="reminder-item">
                     <div class="item-details">
-                        <span class="supplement-name" onclick="showPopup('פסיליום (פעם 1)', 'תפקיד: סיבים תזונתיים לאיזון שומנים (לכידת כולסטרול במעי) וסוכר.\n**חובה**: לערבב במים ולשתות **מיד**. לשתות עוד מים לאחר מכן.\nזמן: **10:00**, בין ארוחות.')">פסיליום (1)</span>
+                        <span class="supplement-name" onclick="showPopup('פסיליום (פעם 1)', 'תפקיד: סיבים תזונתיים לאיזון שומנים (לכידת כולסטרול במעי) וסוכר.\n**מינון**: 5 גר׳ (~1 כפית גדושה).\n**חובה**: לערבב במים ולשתות **מיד**. לשתות עוד מים לאחר מכן.\nזמן: **10:00**, בין ארוחות.')">פסיליום (1)</span>
                         <span class="time-slot">10:00</span>
                     </div>
                     <div class="checkbox-container"><input type="checkbox" id="morning-psyllium"><label for="morning-psyllium"></label></div>
@@ -525,7 +523,7 @@
 
                 <div class="reminder-item">
                     <div class="item-details">
-                        <span class="supplement-name" onclick="showPopup('פסיליום (פעם 2)', 'תפקיד: סיבים תזונתיים לאיזון שומנים וסוכר.\n**חובה**: לערבב במים ולשתות **מיד**. לשתות עוד מים לאחר מכן.\nזמן: **19:00**, לפני תוספי שינה.')">פסיליום (2)</span>
+                        <span class="supplement-name" onclick="showPopup('פסיליום (פעם 2)', 'תפקיד: סיבים תזונתיים לאיזון שומנים וסוכר.\n**מינון**: 5 גר׳ (~1 כפית גדושה).\n**חובה**: לערבב במים ולשתות **מיד**. לשתות עוד מים לאחר מכן.\nזמן: **19:00**, לפני תוספי שינה.')">פסיליום (2)</span>
                         <span class="time-slot">19:00</span>
                     </div>
                     <div class="checkbox-container"><input type="checkbox" id="evening-psyllium"><label for="evening-psyllium"></label></div>
@@ -716,13 +714,96 @@
 
             navigator.serviceWorker.register(swUrl).then(function(registration) {
               console.log('Service Worker registered successfully with scope: ', registration.scope);
+              // הפעלת לוגיקת ההתראות רק לאחר רישום מוצלח
+              scheduleDailyNotifications();
             }, function(err) {
               console.log('Service Worker registration failed: ', err);
             });
           });
         }
 
-        // --- מפתחות שמירה מקומית (Local Storage Keys) ---
+        // --- נתוני התוספים (לצורך התראות) ---
+        const SUPPLEMENT_REMINDERS = [
+            { id: 'morning-tyrosine', name: 'ל-טירוזין', time: '05:30' },
+            { id: 'morning-berberine', name: 'ברברין', time: '05:35' },
+            { id: 'morning-bcomplex', name: 'קומפלקס ויטמיני B', time: '05:35' },
+            { id: 'morning-psyllium', name: 'פסיליום (1)', time: '10:00' },
+            { id: 'noon-omega', name: 'אומגה 3', time: '11:45' },
+            { id: 'noon-ashwagandha', name: 'אשווגנדה + ל-תיאנין', time: '15:00' },
+            { id: 'evening-psyllium', name: 'פסיליום (2)', time: '19:00' },
+            { id: 'evening-magnesium', name: 'מגנזיום גליצינאט', time: '22:00' },
+            { id: 'evening-taurine', name: 'טאורין', time: '22:00' }
+        ];
+
+        // --- פונקציית התראות ---
+        function requestNotificationPermission() {
+            const statusElement = document.getElementById('notification-status');
+            if (!('Notification' in window)) {
+                statusElement.textContent = "שים לב: הדפדפן שלך אינו תומך בהתראות.";
+                return;
+            }
+
+            if (Notification.permission === 'granted') {
+                statusElement.textContent = "✔️ הרשאה להתראות אושרה. התזכורות נשלחות.";
+                // אם ההרשאה כבר אושרה, ניתן לתזמן שוב (במקרה ש-SW לא תפס)
+                scheduleDailyNotifications();
+                return;
+            }
+
+            if (Notification.permission === 'denied') {
+                statusElement.textContent = "❌ הרשאה להתראות נדחתה. לא ניתן לשלוח תזכורות יומיומיות.";
+                return;
+            }
+
+            Notification.requestPermission().then(permission => {
+                if (permission === 'granted') {
+                    statusElement.textContent = "✔️ הרשאה להתראות אושרה. התזכורות נשלחות.";
+                    scheduleDailyNotifications();
+                } else {
+                    statusElement.textContent = "❌ הרשאה להתראות נדחתה. לא ניתן לשלוח תזכורות יומיומיות.";
+                }
+            });
+        }
+        
+        // --- תזמון התראות (באמצעות פונקציית setTimeout פשוטה לדפדפנים תומכים) ---
+        function scheduleDailyNotifications() {
+            if (Notification.permission !== 'granted' || !('serviceWorker' in navigator)) {
+                return;
+            }
+            
+            SUPPLEMENT_REMINDERS.forEach(reminder => {
+                const [hours, minutes] = reminder.time.split(':').map(Number);
+                const now = new Date();
+                
+                // יצירת אובייקט Date להיום בשעת התזכורת
+                let targetTime = new Date(now.getFullYear(), now.getMonth(), now.getDate(), hours, minutes, 0);
+
+                // אם השעה כבר עברה היום, נתזמן למחר
+                if (targetTime.getTime() < now.getTime()) {
+                    targetTime.setDate(targetTime.getDate() + 1);
+                }
+                
+                const timeUntilNotification = targetTime.getTime() - now.getTime();
+                
+                if (timeUntilNotification >= 0) {
+                    setTimeout(() => {
+                        // יש לוודא שה-Service Worker יכול לשלוח את ההתראה
+                        navigator.serviceWorker.ready.then(registration => {
+                            registration.showNotification('💊 זמן לתוסף: ' + reminder.name, {
+                                body: 'הגיע הזמן ליטול את ' + reminder.name + ' בשעה ' + reminder.time + '.',
+                                icon: 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MTIgNTEyIj48ZGVmcz48bGluZWFyR3JhZGllbnQgaWQ9ImEiIHgxPSIuMDc2IiB5MT0iLjAyNyIgeDI9Ijk1NyUlIiB5Mj0iOTczJSIgZ3JhZGl1bnRVbml0cz0ib2JqZWN0Qm91bmRpbmdCb3giPjxzdG9wIG9mZnNldD0iMCIgc3RvcC1jb2xvcj0iI2ZmZmZmZiIvPjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iIzI3NzlGRiIvPjwvZGVmcz48cGF0aCBmaWxsPSJ1cmwoI2EpIiBkZ29sZCI+PDwvZGVmcz48cGF0aCBmaWxsPSJ1cmwoI2EpIiBkPSJNMzU4LjcgNDcuOWMyOS40IDMwLjQgNDUuMiA3MS41IDQ1LjIgMTE1LjUgMCA0NC0xNS44IDg1LjEtNDUuMiAxMTUuNUwxMTIuNyA2NS44bDExNS40IDQ1LjN6Ii8+PHBhdGggZmlsbD0iI2ZmZmZmZiIgZD0iTTQyNCAxMTAuM2wtMTUuNSAxNS41TDI5OSAzMTkuOWwyNCAxMi4xYzExNC4yLTQ1LjEgMTgxLjQtNjkuMSAxODEuNC0xNjAuNSAwLTI4LjUtMy43LTQ4LjEtOS02NC40bC01My4yIDUzLjJjLTEuMy0uMi0zLjctLjQtMy43LS40eiIvPjxwYXRoIGZpbGw9InVybCgjYSkiIGQ9Ik0yNTQuMSAxMTEuMWMtMTkuMi0uMi0zOC4xLTEuOC01Ni43LTUuMUw0NTEgMTY4Yy02Ni40IDI2LjItMTMzLjQgNDAtMjAzIDQwLTY5LjggMC0xMzcuNC0xMy42LTIwMy42LTQwLjJMMjAxLjkgOTYuNXoiLz48cGF0aCBmaWxsPSIjZmZmZmZmIiBkPSJNMTAyLjUgNDQwLjljLTU0LjItNTQuMi04NC4xLTEyNi4yLTg0LjEtMjAzLjEgMC0zNCA1LjctNjkuMSAxNi43LTExLjYtLjEtLjQtLjItLjctLjMtMS4yLS41LS44LTEuMS0xLjYtMS43LTIuNCAzNy4yLTU4LjkgNTcuNy0xMjUuMSA1Ny43LTE5Mi41IDAgNzcuNiAzMC4xIDE0OC41IDg0LjEgMjAyLjUgNTQuNiA1NC42IDEyOS4yIDg0LjYgMjAyLjUgODQuNiA3NyAwIDE0Ny41LTMwLjEgMjAyLjUtODQuMS4yLS4zLjMtLjYuNi0uOTN6bS0xMzUuMy0xNzQuNGMtOS45IDI3LjgtMjAuMSA0Ny40LTI3LjcgNzYuNy03LjcgMjkuMy0xMi44IDMyLjQtMTMuOCAzOC42LS4yIDEuMS0uMyAyLjMtLjMgMy40IDAgMzcuMiAxNC41IDEwNC4xIDM5LjMgMTU5LjktMTI2LjggMTU3LjctTDMxNC45IDE2Ny4yYy00OC42LTEyLjYtMTAyLjEtMTkuMi0xNTYuOS0xOS4yLTI4LjMgMC01NS40IDItODItNi42em0tOTEuMSAzNC42Yy02LjcgMy41LTEzLjUgNy4yLTIwLjUgMTEtNC45IDIuNy0xMC41IDUuNi0xNi41IDguNy0xMS43IDYtMjEuMiA1LjUtMjkuNSAzLjItMTcuNS03LjQtMjQuNy02LjMtMzIuMS00LTYxLjQgMTguMS0xMDAuNCAyMC0xMjMuMSAxLjEtMjcuMS0yMi41LTQzLjEtNjcuNi00My4xLTExNi42IDAtMzEuMiA2LjItNTkuOSA3LjYtNjMuMWwuMi0uNWwuNC0xLjlsMTIuMi0xMi4zIDUyLjIgNTEuNWM0IDQtMTEuNCA1NS42LTU1LjkgOTkuOS00LjcgNC43LTE2LjUgMTUuNi0xNy43IDE3em00MjYuNi0xMjMuOWMtLjktLjctMS44LTEuNC0yLjctMi4xLTUuNi0zLjktMTEuMy03LjktMTYuOS0xMi4yLTI2LjMtMjEuMy01MS45LTI5LjEtODcuMS0yNC4yLTUuNCAuNy0xMC44IDEuOC0xNi4zIDMtMzEuMiAyLjQtMjEuOCAzLjktMzIuNSAzLjktMTIuNiAwLTI0LjktMi41LTM3LjEtN3oiLz48L3N2Zz4', // אייקון כללי של גלולה
+                                tag: reminder.id // כדי למנוע כפילות של אותה התראה
+                            });
+                        });
+                        
+                        // קריאה חוזרת לפונקציה כדי לתזמן אותה ליום המחרת
+                        scheduleDailyNotifications();
+                    }, timeUntilNotification);
+                }
+            });
+        }
+        
+        // --- קוד לוגיקה מקומית (Local Storage Keys) ---
         const CHECKBOX_KEY = 'dailyCheckboxesState';
         const RATING_KEY = 'dailyRatingState';
         const LAST_RESET_KEY = 'lastResetDate';
@@ -768,6 +849,11 @@
             });
 
             checkAndResetDailyLocal();
+        }
+
+        function initializeApp() {
+            requestNotificationPermission(); // קודם מבקשים הרשאה
+            loadState(); // אחר כך טוענים מצב ושומרים
         }
 
         // 2. איפוס יומי מקומי (או לאחר ייצוא מוצלח)
@@ -928,22 +1014,6 @@
                 navigator.vibrate([200, 100, 200]); 
             }
         }
-
-        function requestNotificationPermission() {
-            if ('Notification' in window && Notification.permission !== 'granted' && Notification.permission !== 'denied') {
-                Notification.requestPermission().then(permission => {
-                    if (permission === 'granted') {
-                        console.log('Notification permission granted.');
-                    } else {
-                        console.log('Notification permission denied.');
-                    }
-                });
-            }
-        }
-
-        // --- אתחול ---
-        window.addEventListener('load', loadState);
-
     </script>
 </body>
 </html>
