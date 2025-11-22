@@ -168,7 +168,7 @@
         .item-details {
             display: flex; 
             align-items: center;
-            /* שינוי: סדר ברירת המחדל (row) ייתן [שם תוסף] [שעה] ביחס ל-RTL */
+            /* סדר ברירת המחדל (row) יחד עם כיוון RTL גורם ל-[שעה] להופיע מימין ול-[שם תוסף] משמאל, כנדרש */
             flex-direction: row; 
         }
         
@@ -232,7 +232,7 @@
         .rating-scale {
             display: flex;
             justify-content: space-between;
-            direction: ltr; /* יישור הדירוגים משמאל לימין (1-5) */
+            /* שינוי: הסרת direction: ltr מאפשרת ל-1 להיות מימין (RTL) */
             margin-top: 5px;
         }
 
@@ -357,7 +357,7 @@
           "theme_color": "#17a2b8",
           "icons": [
             {
-              "src": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MTIgNTEyIj48ZGVmcz48bGluZWFyR3JhZGllbnQgaWQ9ImEiIHgxPSIuMDc2IiB5MT0iLjAyNyIgeDI9Ijk1NyUiIHkyPSI5NzMlIiBncmFkaWVudFVuaXRzPSJvYmplY3RCb3VuZGluZ0JveCI+PHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjZmZmZmZmIi8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjMjc3OWZmIi8+PC9saW5lYXJHcmFkaWVudD48L2RlZnM+PHBhdGggZmlsbD0idXJsKCNhIiBkPSJNMzU4LjcgNDcuOWMyOS40IDMwLjQgNDUuMiA3MS41IDQ1LjIgMTE1LjUgMCA0NC0xNS44IDg1LjEtNDUuMiAxMTUuNUwxMTIuNyA2NS44bDExNS40IDQ1LjN6Ii8+PHBhdGggZmlsbD0iI2ZmZmZmZiIgZD0iTTQyNCAxMTAuM2wtMTUuNSAxNS41TDI5OSAzMTkuOWwyNCAxMi4xYzExNC4yLTQ1LjEgMTgxLjQtNjkuMSAxODEuNC0xNjAuNSAwLTI4LjUtMy43LTQ4LjEtOS02NC40bC01My4yIDUzLjJjLTEuMy0uMi0zLjctLjQtMy43LS40eiIvPjxwYXRo ZmlsbD0idXJsKCNhKSIgZD0iTTI1NC4xIDExMS4xYy0xOS4yLS4yLTM4LjEtMS44LTU2LjctNS4xTDQ1MSAxNjhjLTY2LjQgMjYuMi0xMzMuNCA0MC0yMDMgNDAtNjkuOCAwLTEzNy40LTEzLjYtMjAzLjYtNDAuMkwyMDEuOSA5Ni41eiIvPjxwYXRo ZmlsbD0iI2ZmZmZmZiIgZD0iTTEwMi41IDQ0MC45Yy01NC4yLTU0LjItODQuMS0xMjYuMi04NC4xLTIwMy4xIDAtMzQgNS43LTY5LjEgMTYuNy0xMDEuNi4xLS40LjItLjcuMy0xLjItLjUtLjgtMS4xLTEuNi0xLjctMi40IDM3LjItNTguOSA1Ny43LTEyNS4xIDU3LjctMTkyLjUgMCA3Ny42IDMwLjEgMTQ4LjUgODQuMSAyMDIuNSA1NC42IDU0LjYgMTI5LjIgODQuNiAyMDIuNSA4NC42IDc3IDAgMTQ3LjUtMzAuMSAyMDIuNS04NC4xLjItLjMuMy0uNi42LS45M3ptLTEzNS4zLTE3NC40Yy05LjkgMjcuOC0yMC4xIDQ3LjQtMjcuNyA3Ni43LTcuNyAyOS4zLTEyLjggMzIuNC0xMy44IDM4LjYtLjIgMS4xLS4zIDIuMy0uMyAzLjQgMCAzNy4yIDE0LjUgMTA0LjEgMzkuMyAxNTkuOXptMTk2LjggMTU3LjdMMzE0LjkgMTY3LjJjLTQ4LjYtMTIuNi0xMDIuMS0xOS4yLTE1Ni45LTE5LjItMjguMyAwLTU1LjQgMi4zLTgyLjUgNi42em0tOTEuMSA0MS40Yy02LjcgMy41LTEzLjUgNy4yLTIwLjUgMTEtNC45IDIuNy0xMC41IDUuNi0xNi41IDguNy0xMS43IDYtMjEuMiA1LjUtMjkuNSAzLjItMTcuNS03LjQtMjQuNy02LjMtMzIuMS00LTYxLjQgMTguMS0xMDAuNCAyMC0xMjMuMSAxLjEtMjcuMS0yMi41LTQzLjEtNjcuNi00My4xLTExNi42IDAtMzEuMiA2LjItNTkuOSA3LjYtNjMuMWwuMi0uNXwuNC0xLjlsMTIuMi0xMi4zIDUyLjIgNTEuNWM0IDQtMTEuNCA1NS42LTU1LjkgOTkuOS00LjcgNC43LTE2LjUgMTUuNi0xNy43IDE3em00MjYuNi0xMjMuOWMtLjktLjctMS44LTEuNC0yLjctMi4xLTUuNi0zLjktMTEuMy03LjktMTYuOS0xMi4yLTI2LjMtMjEuMy01MS45LTI5LjEtODcuMS0yNC4yLTUuNCAuNy0xMC44IDEuOC0xNi4zIDMtMTEuMiAyLjQtMjEuOCAzLjktMzIuNSAzLjktMTIuNiAwLTI0LjktMi41LTM3LjEtN3oiLz48L3N2Zz4=",
+              "src": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MTIgNTEyIj48ZGVmcz48bGluZWFyR3JhZGllbnQgaWQ9ImEiIHgxPSIuMDc2IiB5MT0iLjAyNyIgeDI9Ijk1NyUiIHkyPSI5NzMlIiBncmFkaWVudFVuaXRzPSJvYmplY3RCb3VuZGluZ0JveCI+PHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjZmZmZmZmIi8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjMjc3OWZmIi8+PC9kZWZzPjxwYXRo ZmlsbD0idXJsKCNhIiBkPSJNMzU4LjcgNDcuOWMyOS40IDMwLjQgNDUuMiA3MS41IDQ1LjIgMTE1LjUgMCA0NC0xNS44IDg1LjEtNDUuMiAxMTUuNUwxMTIuNyA2NS44bDExNS40IDQ1LjN6Ii8+PHBhdGggZmlsbD0iI2ZmZmZmZiIgZD0iTTQyNCAxMTAuM2wtMTUuNSAxNS41TDI5OSAzMTkuOWwyNCAxMi4xYzExNC4yLTQ1LjEgMTgxLjQtNjkuMSAxODEuNC0xNjAuNSAwLTI4LjUtMy43LTQ4LjEtOS02NC40bC01My4yIDUzLjJjLTEuMy0uMi0zLjctLjQtMy43LS40eiIvPjxwYXRo ZmlsbD0idXJsKCNhKSIgZD0iTTI1NC4xIDExMS4xYy0xOS4yLS4yLTM4LjEtMS44LTU2LjctNS4xTDQ1MSAxNjhjLTY2LjQgMjYuMi0xMzMuNCA0MC0yMDMgNDAtNjkuOCAwLTEzNy40LTEzLjYtMjAzLjYtNDAuMkwyMDEuOSA5Ni41ezAiLz48cGF0aCBmaWxsPSIjZmZmZmZmIiBkPSJNMTAyLjUgNDQwLjljLTU0LjItNTQuMi04NC4xLTEyNi4yLTg0LjEtMjAzLjEgMC0zNCA1LjctNjkuMSAxNi43LTExLjYtLjEtLjQtLjItLjctLjMtMS4yLS41LS44LTEuMS0xLjYtMS43LTIuNCAzNy4yLTU4LjkgNTcuNy0xMjUuMSA1Ny43LTE5Mi41IDAgNzcuNiAzMC4xIDE0OC41IDg0LjEgMjAyLjUgNTQuNiA1NC42IDEyOS4yIDg0LjYgMjAyLjUgODQuNiA3NyAwIDE0Ny41LTMwLjEgMjAyLjUtODQuMS4yLS4zLjMtLjYuNi0uOTN6bS0xMzUuMy0xNzQuNGMtOS45IDI3LjgtMjAuMSA0Ny40LTI3LjcgNzYuNy03LjcgMjkuMy0xMi44IDMyLjQtMTMuOCAzOC42LS4yIDEuMS0uMyAyLjMtLjMgMy40IDAgMzcuMiAxNC41IDEwNC4xIDM5LjMgMTU5Ljl6bTE5Ni44IDE1Ny43TDMxNC45IDE2Ny4yYy00OC42LTEyLjYtMTAyLjEtMTkuMi0xNTYuOS0xOS4yLTI4LjMgMC01NS40IDIuMy04Mi41IDYuNnptLTkxLjEgNDEuNGMtNi43IDMuNS0xMy41IDcuMi0yMC41IDExLTQuOSAyLjctMTAuNSA1LjYtMTYuNSA4LjctMTEuNyA2LTIxLjIgNS41LTI5LjUgMy4yLTE3LjUtNy40LTI0LjctNi4zLTMyLjEtNC02MS40IDE4LjEtMTAwLjQgMjAtMTIzLjEgMS4xLTI3LjEtMjIuNS00My4xLTY3LjYtNDMuMS0xMTYuNiAwLTMxLjIgNi4yLTU5LjkgNy42LTYzLjFsLjItLjV8LjQtMS45bDEyLjItMTIuMyA1Mi4yIDUxLjVjNCA0LTExLjQgNTUuNi01NS45IDk5LjktNC43IDQuNy0xNi41IDE1LjYtMTcuNyAxN3ptNDI2LjYtMTIzLjljLS45LS43LTEuOC0xLjQtMi43LTIuMS01LjYtMy45LTExLjMtNy45LTE2LjktMTIuMi0yNi4zLTIxLjMtNTEuOS0yOS4xLTg3LjEtMjQuMi01LjQgLjctMTAuOCAxLjgtMTYuMyAzLTMxLjIgMi40LTIxLjggMy45LTMyLjUgMy45LTEyLjYgMC0yNC45LTIuNS0zNy4xLTd6Ii8+PC9zdmc+",
               "sizes": "512x512",
               "type": "image/svg+xml"
             }
@@ -472,84 +472,104 @@
                 <h3>💊 תוספים (וידוא לקיחה)</h3>
                 
                 <div class="reminder-item">
-                    <div class="item-details">
-                        <span class="supplement-name" onclick="showPopup('ל-טירוזין 500 מ״ג', 'תפקיד: חומר גלם לייצור **דופמין** ואדרנלין. נותן אנרגיה ומקדם מוטיבציה.\n**חשוב**: יש ליטול על בטן ריקה.\nזמן: **06:30**.')">ל-טירוזין</span>
-                        <span class="time-slot">06:30</span>
-                    </div>
                     <div class="checkbox-container"><input type="checkbox" id="morning-tyrosine"><label for="morning-tyrosine"></label></div>
+                    <div class="item-details">
+                        <span class="time-slot">06:30</span>
+                        <span class="supplement-name" onclick="showPopup('ל-טירוזין 500 מ״ג', 'תפקיד: חומר גלם לייצור **דופמין** ואדרנלין. נותן אנרגיה ומקדם מוטיבציה.\n**חשוב**: יש ליטול על בטן ריקה.\nזמן: **06:30**.')">ל-טירוזין</span>
+                    </div>
                 </div>
                 
                 <div class="reminder-item">
-                    <div class="item-details">
-                        <span class="supplement-name" onclick="showPopup('ברברין אדוונסד', 'תפקיד: איזון סוכר בדם וסיוע בהורדת כולסטרול רע (LDL).\n**חשוב**: על קיבה יחסית ריקה.\nזמן: **07:45**, 15 דק׳ לפני אוכל.')">ברברין</span>
-                        <span class="time-slot">07:45</span>
-                    </div>
                     <div class="checkbox-container"><input type="checkbox" id="morning-berberine"><label for="morning-berberine"></label></div>
+                    <div class="item-details">
+                        <span class="time-slot">07:45</span>
+                        <span class="supplement-name" onclick="showPopup('ברברין אדוונסד', 'תפקיד: איזון סוכר בדם וסיוע בהורדת כולסטרול רע (LDL).\n**חשוב**: על קיבה יחסית ריקה.\nזמן: **07:45**, 15 דק׳ לפני אוכל.')">ברברין</span>
+                    </div>
                 </div>
 
                 <div class="reminder-item">
-                    <div class="item-details">
-                        <span class="supplement-name" onclick="showPopup('קומפלקס ויטמיני B', 'תפקיד: ייצור אנרגיה, תפקוד מערכת העצבים וליצירת מוליכים עצביים.\n**חשוב**: יש ליטול עם אוכל.\nזמן: **08:00**, עם ארוחת הבוקר.')">קומפלקס ויטמיני B</span>
-                        <span class="time-slot">08:00</span>
-                    </div>
                     <div class="checkbox-container"><input type="checkbox" id="morning-bcomplex"><label for="morning-bcomplex"></label></div>
+                    <div class="item-details">
+                        <span class="time-slot">08:00</span>
+                        <span class="supplement-name" onclick="showPopup('קומפלקס ויטמיני B', 'תפקיד: ייצור אנרגיה, תפקוד מערכת העצבים וליצירת מוליכים עצביים.\n**חשוב**: יש ליטול עם אוכל.\nזמן: **08:00**, עם ארוחת הבוקר.')">קומפלקס ויטמיני B</span>
+                    </div>
                 </div>
 
                 <div class="reminder-item">
-                    <div class="item-details">
-                        <span class="supplement-name" onclick="showPopup('פסיליום (פעם 1)', 'תפקיד: סיבים תזונתיים לאיזון שומנים (לכידת כולסטרול במעי) וסוכר.\n**חובה**: לערבב במים ולשתות **מיד**. לשתות עוד מים לאחר מכן.\nזמן: **10:00**, בין ארוחות.')">פסיליום (1)</span>
-                        <span class="time-slot">10:00</span>
-                    </div>
                     <div class="checkbox-container"><input type="checkbox" id="morning-psyllium"><label for="morning-psyllium"></label></div>
+                    <div class="item-details">
+                        <span class="time-slot">10:00</span>
+                        <span class="supplement-name" onclick="showPopup('פסיליום (פעם 1)', 'תפקיד: סיבים תזונתיים לאיזון שומנים (לכידת כולסטרול במעי) וסוכר.\n**חובה**: לערבב במים ולשתות **מיד**. לשתות עוד מים לאחר מכן.\nזמן: **10:00**, בין ארוחות.')">פסיליום (1)</span>
+                    </div>
                 </div>
 
                 <div class="reminder-item">
-                    <div class="item-details">
-                        <span class="supplement-name" onclick="showPopup('אומגה 3 משולשת עוצמה', 'תפקיד: הורדת טריגליצרידים, נוגד דלקת חזק, תמיכה בלב ובמצב הרוח.\n**חשוב**: עם הארוחה העשירה ביותר בשומן.\nזמן: **12:00**, עם ארוחת צהריים.')">אומגה 3</span>
-                        <span class="time-slot">12:00</span>
-                    </div>
                     <div class="checkbox-container"><input type="checkbox" id="noon-omega"><label for="noon-omega"></label></div>
+                    <div class="item-details">
+                        <span class="time-slot">12:00</span>
+                        <span class="supplement-name" onclick="showPopup('אומגה 3 משולשת עוצמה', 'תפקיד: הורדת טריגליצרידים, נוגד דלקת חזק, תמיכה בלב ובמצב הרוח.\n**חשוב**: עם הארוחה העשירה ביותר בשומן.\nזמן: **12:00**, עם ארוחת צהריים.')">אומגה 3</span>
+                    </div>
                 </div>
 
                 <div class="reminder-item">
-                    <div class="item-details">
-                        <span class="supplement-name" onclick="showPopup('אשווגנדה KSM-66 + L-תיאנין', 'תפקיד: צמח אדפטוגני המאזן את הורמון הסטרס (קורטיזול), מפחית מתח וחרדה.\n**התאמה**: בשעה קבועה.\nזמן: **15:00**, אחר הצהריים.')">אשווגנדה + ל-תיאנין</span>
-                        <span class="time-slot">15:00</span>
-                    </div>
                     <div class="checkbox-container"><input type="checkbox" id="noon-ashwagandha"><label for="noon-ashwagandha"></label></div>
+                    <div class="item-details">
+                        <span class="time-slot">15:00</span>
+                        <span class="supplement-name" onclick="showPopup('אשווגנדה KSM-66 + L-תיאנין', 'תפקיד: צמח אדפטוגני המאזן את הורמון הסטרס (קורטיזול), מפחית מתח וחרדה.\n**התאמה**: בשעה קבועה.\nזמן: **15:00**, אחר הצהריים.')">אשווגנדה + ל-תיאנין</span>
+                    </div>
                 </div>
 
                 <div class="reminder-item">
-                    <div class="item-details">
-                        <span class="supplement-name" onclick="showPopup('פסיליום (פעם 2)', 'תפקיד: סיבים תזונתיים לאיזון שומנים וסוכר.\n**חובה**: לערבב במים ולשתות **מיד**. לשתות עוד מים לאחר מכן.\nזמן: **19:00**, לפני תוספי שינה.')">פסיליום (2)</span>
-                        <span class="time-slot">19:00</span>
-                    </div>
                     <div class="checkbox-container"><input type="checkbox" id="evening-psyllium"><label for="evening-psyllium"></label></div>
+                    <div class="item-details">
+                        <span class="time-slot">19:00</span>
+                        <span class="supplement-name" onclick="showPopup('פסיליום (פעם 2)', 'תפקיד: סיבים תזונתיים לאיזון שומנים וסוכר.\n**חובה**: לערבב במים ולשתות **מיד**. לשתות עוד מים לאחר מכן.\nזמן: **19:00**, לפני תוספי שינה.')">פסיליום (2)</span>
+                    </div>
                 </div>
 
                 <div class="reminder-item">
-                    <div class="item-details">
-                        <span class="supplement-name" onclick="showPopup('מגנזיום גליצינאט', 'תפקיד: הרפיית שרירים, הורדת עוררות עצבית וסיוע בהכנה לשינה עמוקה.\n**הערה**: מומלץ להרגעה.\nזמן: **21:00**, לפני השינה.')">מגנזיום גליצינאט</span>
-                        <span class="time-slot">21:00</span>
-                    </div>
                     <div class="checkbox-container"><input type="checkbox" id="evening-magnesium"><label for="evening-magnesium"></label></div>
+                    <div class="item-details">
+                        <span class="time-slot">21:00</span>
+                        <span class="supplement-name" onclick="showPopup('מגנזיום גליצינאט', 'תפקיד: הרפיית שרירים, הורדת עוררות עצבית וסיוע בהכנה לשינה עמוקה.\n**הערה**: מומלץ להרגעה.\nזמן: **21:00**, לפני השינה.')">מגנזיום גליצינאט</span>
+                    </div>
                 </div>
 
                 <div class="reminder-item">
-                    <div class="item-details">
-                        <span class="supplement-name" onclick="showPopup('טאורין', 'תפקיד: מגביר פעילות GABA (מוליך עצבי מרגיע), מסייע בהפחתת דאגנות ושיפור ההירדמות.\n**נטילה**: יחד עם המגנזיום.\nזמן: **21:00**.')">טאורין</span>
-                        <span class="time-slot">21:00</span>
-                    </div>
                     <div class="checkbox-container"><input type="checkbox" id="evening-taurine"><label for="evening-taurine"></label></div>
+                    <div class="item-details">
+                        <span class="time-slot">21:00</span>
+                        <span class="supplement-name" onclick="showPopup('טאורין', 'תפקיד: מגביר פעילות GABA (מוליך עצבי מרגיע), מסייע בהפחתת דאגנות ושיפור ההירדמות.\n**נטילה**: יחד עם המגנזיום.\nזמן: **21:00**.')">טאורין</span>
+                    </div>
                 </div>
                 
             </div>
             
             <div class="reminder-section">
                 <h3>🏃‍♂️ אורח חיים ומדדים</h3>
-                <div class="reminder-item"><div class="item-details"><span>תזונה 🥗</span><span class="time-slot">3 ארוחות מאוזנות</span></div><div class="checkbox-container"><input type="checkbox" id="lifestyle-diet"><label for="lifestyle-diet"></label></div></div>
-                <div class="reminder-item"><div class="item-details"><span>שינה 🛌</span><span class="time-slot">7+ שעות שינה</span></div><div class="checkbox-container"><input type="checkbox" id="lifestyle-sleep"><label for="lifestyle-sleep"></label></div></div>
-                <div class="reminder-item"><div class="item-details"><span>הליכה 🚶‍♂️</span><span class="time-slot">15 דק׳ בחוץ (15:30)</span></div><div class="checkbox-container"><input type="checkbox" id="lifestyle-walk"><label for="lifestyle-walk"></label></div></div>
+                <div class="reminder-item">
+                    <div class="checkbox-container"><input type="checkbox" id="lifestyle-diet"><label for="lifestyle-diet"></label></div>
+                    <div class="item-details">
+                        <span class="time-slot">3 ארוחות מאוזנות</span>
+                        <span class="supplement-name">תזונה 🥗</span>
+                    </div>
+                </div>
+                
+                <div class="reminder-item">
+                    <div class="checkbox-container"><input type="checkbox" id="lifestyle-sleep"><label for="lifestyle-sleep"></label></div>
+                    <div class="item-details">
+                        <span class="time-slot">7+ שעות שינה</span>
+                        <span class="supplement-name">שינה 🛌</span>
+                    </div>
+                </div>
+                
+                <div class="reminder-item">
+                    <div class="checkbox-container"><input type="checkbox" id="lifestyle-walk"><label for="lifestyle-walk"></label></div>
+                    <div class="item-details">
+                        <span class="time-slot">15 דק׳ בחוץ (15:30)</span>
+                        <span class="supplement-name">הליכה 🚶‍♂️</span>
+                    </div>
+                </div>
             </div>
 
 
