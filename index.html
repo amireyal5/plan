@@ -166,10 +166,11 @@
 
         /* --- התיקון ליישור RTL/LTR ולעיצוב קישור --- */
         .item-details {
+            /* שינוי: שימוש ב-flex כדי ליישר את השעה לימין ואת שם התוסף לשמאל בתוך המכולה הנותרת */
             display: flex; 
             align-items: center;
-            /* סדר ברירת המחדל (row) יחד עם כיוון RTL גורם ל-[שעה] להופיע מימין ול-[שם תוסף] משמאל, כנדרש */
-            flex-direction: row; 
+            /* שינוי: רווח שידחוף את השעה כמה שיותר ימינה */
+            width: 100%; /* שימוש במקסימום רוחב שה-space-between משאיר */
         }
         
         /* עיצוב שם התוסף כקישור */
@@ -178,7 +179,8 @@
             color: #17a2b8; /* צבע כחול */
             cursor: pointer;
             border-bottom: 1px solid #17a2b8; /* פס תחתון של קישור */
-            margin-left: 10px; /* מרווח בין שם התוסף לשעה */
+            /* שינוי: שימוש ב-margin-right כדי לדחוף את שם התוסף שמאלה יותר */
+            margin-right: 15px;
         }
         
         .item-details .time-slot {
@@ -186,6 +188,8 @@
             color: #dc3545; /* צבע אדום לזמן */
             white-space: nowrap; 
             direction: ltr; /* לוודא שהשעה עצמה לא מתהפכת */
+            /* דוחף את השעה לימין המכולה (ליד הצ'קבוקס) */
+            margin-right: auto; /* דוחף את האלמנט הבא (שם התוסף) שמאלה */
         }
         /* ---------------------------------- */
 
@@ -232,7 +236,7 @@
         .rating-scale {
             display: flex;
             justify-content: space-between;
-            /* שינוי: הסרת direction: ltr מאפשרת ל-1 להיות מימין (RTL) */
+            /* הסרת direction: ltr מאפשרת ל-1 להיות מימין (RTL) */
             margin-top: 5px;
         }
 
@@ -278,7 +282,7 @@
         }
         
         button:hover {
-            background-color: #138496;
+            background-color: #138499;
         }
 
         /* --- סטיילינג לפופאפ --- */
