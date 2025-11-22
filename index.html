@@ -1,0 +1,825 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>תוכנית תוספים יומית</title>
+    
+    <link rel="manifest" href="manifest.json">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* איפוס וגופנים */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Heebo', sans-serif;
+            background-color: #f7f7f7;
+            color: #2c3e50;
+            line-height: 1.6;
+        }
+
+        /* מכולה ראשית */
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 15px;
+        }
+
+        /* כותרות */
+        .header {
+            text-align: center;
+            padding: 25px 0 15px;
+            background-color: #ffffff;
+            border-bottom: 1px solid #e0e0e0;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            color: #007bff;
+            font-weight: 700;
+            font-size: 1.8em;
+            margin-bottom: 5px;
+        }
+
+        h2 {
+            color: #28a745;
+            font-size: 1.5em;
+            font-weight: 700;
+            margin-top: 25px;
+            margin-bottom: 15px;
+            padding-right: 10px;
+            border-right: 4px solid #28a745;
+        }
+
+        h3 {
+            color: #333;
+            font-size: 1.1em;
+            margin-bottom: 5px;
+        }
+
+        /* קטע מבוא והתחלה */
+        .intro-section {
+            background-color: #e8f5e9;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+
+        .intro-section p {
+            margin: 10px 0;
+        }
+
+        .intro-section strong {
+            color: #007bff;
+        }
+
+        /* מונחים לחיצים בתוך הטקסט */
+        .clickable-term {
+            font-weight: bold;
+            color: #dc3545;
+            text-decoration: underline;
+            cursor: pointer;
+            white-space: nowrap;
+        }
+
+        /* יעדים */
+        .goals-list {
+            list-style: none;
+            padding: 0;
+            display: grid;
+            gap: 10px;
+        }
+
+        .goals-list li {
+            background-color: #ffffff;
+            padding: 12px 15px;
+            border-radius: 8px;
+            border-right: 5px solid #007bff;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        /* תוספים (כרטיסיות) */
+        .supplements-grid {
+            display: grid;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .supplement-card {
+            background-color: #ffffff;
+            border-radius: 10px;
+            padding: 15px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            transition: transform 0.2s, box-shadow 0.2s;
+            cursor: pointer;
+            border-right: 5px solid #007bff;
+        }
+
+        /* צבעים לפי זמן */
+        .morning-card { border-right-color: #ffc107; }
+        .evening-card { border-right-color: #6c757d; }
+        .psyllium-card { background-color: #e6f7ff; border-right-color: #007bff; }
+
+        .supplement-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+        }
+
+        .card-title {
+            font-weight: 700;
+            color: #0056b3;
+            margin-bottom: 8px;
+            font-size: 1.15em;
+        }
+
+        .card-details {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.95em;
+            margin-top: 10px;
+        }
+
+        .card-details div {
+            flex: 1;
+            text-align: right;
+        }
+
+        .dose, .time {
+            font-weight: 700;
+            color: #dc3545;
+        }
+
+        /* דגשים חשובים */
+        .notes-section {
+            background-color: #fff8e1;
+            border-left: 5px solid #ff9800;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 30px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+
+        .note-item {
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px dashed #ffb74d;
+        }
+
+        .note-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .note-item strong {
+            display: block;
+            font-weight: 700;
+            color: #e65100;
+            margin-bottom: 5px;
+            font-size: 1.1em;
+        }
+
+        /* --- סטיילינג לאפליקציית התזכורות (Reminder App) --- */
+        .reminder-app {
+            margin-top: 40px;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 15px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+        }
+
+        .reminder-section {
+            margin-bottom: 20px;
+            border-bottom: 1px solid #f0f0f0;
+            padding-bottom: 10px;
+        }
+
+        .reminder-section h3 {
+            color: #007bff;
+            border-bottom: 2px solid #007bff;
+            padding-bottom: 5px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+
+        .reminder-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px dotted #e0e0e0;
+            font-size: 1em;
+        }
+
+        .reminder-item:last-child {
+            border-bottom: none;
+        }
+
+        .item-details {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .item-details span:first-child {
+            font-weight: 700;
+            color: #6c757d;
+        }
+
+        .item-details .time-slot {
+            font-weight: 700;
+            color: #007bff;
+            margin-left: 5px;
+            padding-left: 5px;
+            border-left: 2px solid #007bff;
+        }
+
+        /* צ'קבוקס מוסתר + עיצוב מותאם */
+        .checkbox-container input[type="checkbox"] {
+            display: none;
+        }
+
+        .checkbox-container label {
+            width: 20px;
+            height: 20px;
+            border: 2px solid #007bff;
+            border-radius: 4px;
+            display: inline-block;
+            cursor: pointer;
+            position: relative;
+            transition: background-color 0.2s;
+        }
+
+        /* עיצוב סימון V */
+        .checkbox-container input[type="checkbox"]:checked + label {
+            background-color: #28a745;
+            border-color: #28a745;
+        }
+
+        .checkbox-container input[type="checkbox"]:checked + label::after {
+            content: '✓';
+            color: #ffffff;
+            font-size: 14px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            line-height: 1;
+        }
+
+        /* --- סטיילינג פופאפ (Popup) --- */
+        .popup {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.6);
+        }
+
+        .popup-content {
+            background-color: #ffffff;
+            margin: 20% auto;
+            padding: 20px;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 450px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+            animation: fadeIn 0.3s;
+        }
+
+        .close-btn {
+            color: #aaa;
+            float: left;
+            font-size: 28px;
+            font-weight: bold;
+            transition: color 0.2s;
+        }
+
+        .close-btn:hover,
+        .close-btn:focus {
+            color: #333;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        #popupTitle {
+            font-size: 1.3em;
+            color: #007bff;
+            border-bottom: 2px solid #e0e0e0;
+            padding-bottom: 10px;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        #popupText {
+            white-space: pre-line;
+            font-size: 1em;
+            text-align: right;
+        }
+
+        /* רספונסיביות - כרטיסיות בטור אחד במובייל */
+        @media (min-width: 600px) {
+            .supplements-grid {
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+    </style>
+    
+    <script id="manifest-data" type="application/json">
+        {
+          "name": "תזכורת תוספים - איתן",
+          "short_name": "תוספים",
+          "description": "אפליקציית מעקב אחר תוספים יומיומיים",
+          "start_url": "./",
+          "display": "standalone",
+          "background_color": "#ffffff",
+          "theme_color": "#007bff",
+          "icons": [
+            {
+              "src": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MTIgNTEyIj48ZGVmcz48bGluZWFyR3JhZGllbnQgaWQ9ImEiIHgxPSIuMDc2IiB5MT0iLjAyNyIgeDI9Ijk1NyUiIHkyPSI5NzMlIiBncmFkaWVudFVuaXRzPSJvYmplY3RCb3VuZGluZ0JveCI+PHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjZmZmZmZmIi8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjMjc3OWZmIi8+PC9saW5lYXJHcmFkaWVudD48L2RlZnM+PHBhdGggZmlsbD0idXJsKCNhKSIgZD0iTTM1OC43IDQ3LjljMjkuNCAzMC40IDQ1LjIgNzEuNSA0NS4yIDExNS41IDAgNDQtMTUuOCA4NS4xLTQ1LjIgMTE1LjVMMTEyLjcgNjUuOGwxMTUuNCA0NS4zeiIvPjxwYXRoIGZpbGw9IiNmZmZmZmYiIGQ9Ik00MjQgMTEwLjNsLTE1LjUgMTUuNUwyOTkgNDQyLjlsMjQgMTIuMWMxMTQuMi00NS4xIDE4MS40LTY5LjEgMTgxLjQtMTYwLjUgMC0yOC41LTMuNy00OC4xLTktNjQuNGwtNTMuMiA1My4yYy0xLjMtLjItMy43LS40LTMuNy0uNHoiLz48cGF0aCBmaWxsPSJ1cmwoI2EpIiIgZD0iTTI1NC4xIDExMS4xYy0xOS4yLS4yLTM4LjEtMS44LTU2LjctNS4xTDQ1MSAxNjhjLTY2LjQgMjYuMi0xMzMuNCA0MC0yMDMgNDAtNjkuOCAwLTEzNy40LTEzLjYtMjAzLjYtNDAuMkwyMDEuOSA5Ni41eiIvPjxwYXRoIGZpbGw9IiNmZmZmZmYiIGQ9Ik0xMDIuNSA0NDAuOWMtNTQuMi01NC4yLTg0LjEtMTI2LjItODQuMS0yMDMuMSAwLTM0IDUuNy02OS4xIDE2LjctMTAxLjYuMS0uNC4yLS43LjMtMS4yLS41LS44LTEuMS0xLjYtMS43LTIuNCAzNy4yLTU4LjkgNTcuNy0xMjUuMSA1Ny43LTE5Mi41IDAgNzcuNiAzMC4xIDE0OC41IDg0LjEgMjAyLjUgNTQuNiA1NC42IDEyOS4yIDg0LjYgMjAyLjUgODQuNiA3NyAwIDE0Ny41LTMwLjEgMjAyLjUtODQuMS4yLS4zLjMtLjYuNi0uOXptLTEzNS4zLTE3NC40Yy05LjkgMjcuOC0yMC4xIDQ3LjQtMjcuNyA3Ni43LTcuNyAyOS4zLTEyLjggMzIuNC0xMy44IDM4LjYtLjIgMS4xLS4zIDIuMy0uMyAzLjQgMCAzNy4yIDE0LjUgMTA0LjEgMzkuMyAxNTkuOXptMTk2LjggMTU3LjdMMzE0LjkgMTY3LjJjLTQ4LjYtMTIuNi0xMDIuMS0xOS4yLTE1Ni45LTE5LjItMjguMyAwLTU1LjQgMi4zLTgyLjUgNi42em0tOTEuMSA0MS40Yy02LjcgMy41LTEzLjUgNy4yLTIwLjUgMTEtNC45IDIuNy0xMC41IDUuNi0xNi41IDguNy0xMS43IDYtMjEuMiA1LjUtMjkuNSAzLjItMTcuNS03LjQtMjQuNy02LjMtMzIuMS00LTYxLjQgMTguMS0xMDAuNCAyMC0xMjMuMSAxLjEtMjcuMS0yMi41LTQzLjEtNjcuNi00My4xLTExNi42IDAtMzEuMiA2LjItNTkuOSA3LjYtNjMuMWwuMi0uNWwuNC0xLjFsMTIuMi0xMi4zIDUyLjIgNTEuNWM0IDQtMTEuNCA1NS42LTU1LjkgOTkuOS00LjcgNC43LTE2LjUgMTUuNi0xNy43IDE3em00MjYuNi0xMjMuOWMtLjktLjctMS44LTEuNC0yLjctMi4xLTUuNi0zLjktMTEuMy03LjktMTYuOS0xMi4yLTI2LjMtMjEuMy01MS45LTI5LjEtODcuMS0yNC4yLTUuNCAuNy0xMC44IDEuOC0xNi4zIDMtMTEuMiAyLjQtMjEuOCAzLjktMzIuNSAzLjktMTIuNiAwLTI0LjktMi41LTM3LjEtN3oiLz48L3N2Zz4=',
+              "sizes": "512x512",
+              "type": "image/svg+xml"
+            }
+          ]
+        }
+    </script>
+</head>
+<body onload="requestNotificationPermission()">
+
+    <div class="header">
+        <h1>💊 תוכנית שיקום ואיזון מותאמת אישית 🌿</h1>
+        <p style="color: #6c757d; font-size: 1.1em;">עבור: **איתן**</p>
+    </div>
+
+    <div class="container">
+
+        <div class="intro-section">
+            <p>התוכנית נבנתה במיוחד כדי לתמוך בגוף וב<span class="clickable-term" onclick="showPopup('איזון מערכת העצבים', 'הגדרה: המטרה היא להעביר את הגוף ממצב \'הילחם או ברח\' (סימפתטי) למצב \'מנוחה ועיכול\' (פאראסימפתטי).\nתפקיד: הורדת דופק, הרפיית שרירים, שיפור עיכול ושינה.')">איזון מערכת העצבים</span> בתקופה מאתגרת. זהו פרוטוקול טיפולי זמני ל־**8–12 שבועות**, שמטרתו לפרק בהדרגה את מעגל הסטרס – החרדה – הכולסטרול.</p>
+            <p>**הערה חשובה:** הוגדרו עבורך 8 שעונים מעוררים יומיים (ב-06:30, 07:45, 08:00, 10:00, 12:00, 15:00, 19:00, 21:00) באפליקציית השעון של המכשיר שלך, אשר יספקו התראות רוטטות וקופצות מדויקות. </p>
+        </div>
+
+        <h2>🎯 היעדים המרכזיים</h2>
+        <ul class="goals-list">
+            <li><span class="clickable-term" onclick="showPopup('איזון מערכת העצבים', 'הגדרה: המטרה היא להעביר את הגוף ממצב \'הילחם או ברח\' (סימפתטי) למצב \'מנוחה ועיכול\' (פאראסימפתטי).\nתפקיד: הורדת דופק, הרפיית שרירים, שיפור עיכול ושינה.')">איזון מערכת העצבים</span> והפחתת <span class="clickable-term" onclick="showPopup('קורטיזול', 'הגדרה: הורמון סטרס המשתחרר מבלוטת האדרנל בתגובה למצבי לחץ או סכנה.\nתפקיד: רמות גבוהות כרוניות קשורות לעלייה במשקל, בעיות שינה, דיכוי חיסוני ועלייה בסיכון למחלות לב.')">קורטיזול</span>.</li>
+            <li>שיפור פרופיל שומנים בדם – ירידה ב<span class="clickable-term" onclick="showPopup('LDL', 'הגדרה: ליפופרוטאין בצפיפות נמוכה, המכונה \'הכולסטרול הרע\'.\nתפקיד: נושא כולסטרול מהכבד לרקמות. רמות גבוהות מעלות את הסיכון להצטברות פלאק בעורקים (טרשת עורקים).')">LDL</span> וב<span class="clickable-term" onclick="showPopup('טריגליצרידים', 'הגדרה: סוג שומן הנמצא בדם. הגוף מייצר טריגליצרידים מעודפי קלוריות (בעיקר מפחמימות פשוטות וסוכר).\nתפקיד: משמשים כמקור אנרגיה מאוחסן. רמות גבוהות קשורות לסיכון למחלות לב וסוכרת.')">טריגליצרידים</span>.</li>
+            <li>תמיכה במצב הרוח ובאנרגיה – שיפור ייצור מוליכים עצביים חיוניים, כולל הפחתת <span class="clickable-term" onclick="showPopup('דלקת (Inflammation)', 'הגדרה: תגובה טבעית של מערכת החיסון לפציעה או זיהום. דלקת כרונית ושקטה קשורה כמעט לכל מחלות הלב והמטבוליזם, כולל כולסטרול גבוה.\nתפקיד: התוספים בתוכנית (כמו אומגה 3) עוזרים להפחית דלקת כרונית.')">דלקת</span>.</li>
+        </ul>
+
+        <h2>⏰ הלו״ז: תוספים מותאמים אישית</h2>
+
+        <h3 style="color: #ff9800;">☀️ בוקר וצהריים (אנרגיה ומטבוליזם)</h3>
+        <div class="supplements-grid">
+            <div class="supplement-card morning-card" onclick="showPopup('L-Tyrosine 500 מ״ג', 'תפקיד מרכזי: חומר גלם לייצור **דופמין** ואדרנלין. נותן אנרגיה ומקדם מוטיבציה, עוזר במצבי דיכאון.\n**חשוב**: יש ליטול על בטן ריקה.\nזמן: **06:30**, 30 דקות אחרי קימה, לפני הברברין.')">
+                <div class="card-title">L-Tyrosine</div>
+                <p>500 מ"ג</p>
+                <div class="card-details">
+                    <div class="dose">מינון: 1 כמוסה</div>
+                    <div class="time">זמן: 06:30, על בטן ריקה</div>
+                </div>
+            </div>
+
+            <div class="supplement-card psyllium-card" onclick="showPopup('פסיליום - Whole Psyllium Husks', 'תפקיד מרכזי: סיבים תזונתיים מסיסים התורמים לאיזון שומנים (לכידת כולסטרול במעי) וסוכר.\n**אופן נטילה**: לערבב בכוס מים גדולה (לפחות 350 מ״ל) ולשתות **מיד**. **חובה לשתות עוד מים לאחר מכן** כדי למנוע חסימה.\nמינון: כפית שטוחה (5 גר׳).')">
+                <div class="card-title">פסיליום (פעם 1 מ-2)</div>
+                <p>Whole Psyllium Husks</p>
+                <div class="card-details">
+                    <div class="dose">מינון: 5 גר׳</div>
+                    <div class="time">זמן: 10:00, בין ארוחות</div>
+                </div>
+            </div>
+            
+            <div class="supplement-card morning-card" onclick="showPopup('ברברין אדוונסד (California Gold Nutrition)', 'תפקיד מרכזי: תמיכה באיזון רמות הסוכר בדם וסיוע בהורדת הכולסטרול הרע (LDL).\n**חשוב**: יש ליטול על קיבה יחסית ריקה.\nזמן: **07:45**, 15 דק׳ לפני ארוחת הבוקר.')">
+                <div class="card-title">ברברין אדוונסד</div>
+                <p>California Gold Nutrition</p>
+                <div class="card-details">
+                    <div class="dose">מינון: 1 כמוסה</div>
+                    <div class="time">זמן: 07:45, לפני ארוחת בוקר</div>
+                </div>
+            </div>
+            
+            <div class="supplement-card morning-card" onclick="showPopup('קומפלקס ויטמיני B (Life Extension)', 'תפקיד מרכזי: ייצור אנרגיה, תפקוד מערכת העצבים, וליצירת מוליכים עצביים (דופמין/סרוטונין).\n**חשוב**: יש ליטול עם אוכל.\nזמן: **08:00**, עם ארוחת הבוקר.')">
+                <div class="card-title">קומפלקס ויטמיני B</div>
+                <p>Life Extension</p>
+                <div class="card-details">
+                    <div class="dose">מינון: 1 כמוסה</div>
+                    <div class="time">זמן: 08:00, עם ארוחת בוקר</div>
+                </div>
+            </div>
+            <div class="supplement-card morning-card" onclick="showPopup('אומגה 3 משולשת עוצמה (Micro Ingredients)', 'תפקיד מרכזי: הורדת טריגליצרידים, נוגד דלקת חזק, תמיכה בבריאות הלב ומצב הרוח.\n**חשוב**: יש ליטול עם הארוחה העשירה ביותר בשומן.\nזמן: **12:00**, עם ארוחת צהריים (הארוחה הגדולה).')">
+                <div class="card-title">אומגה 3 משולשת עוצמה</div>
+                <p>Micro Ingredients</p>
+                <div class="card-details">
+                    <div class="dose">מינון: 2–3 כמוסות</div>
+                    <div class="time">זמן: 12:00, עם ארוחת צהריים</div>
+                </div>
+            </div>
+            <div class="supplement-card morning-card" onclick="showPopup('אשווגנדה KSM-66 + L-תיאנין (Nature\'s Truth)', 'תפקיד מרכזי: צמח אדפטוגני המאזן את הורמון הסטרס (קורטיזול), מפחית מתח וחרדה במהלך היום.\n**התאמה**: מומלץ ליטול בשעה קבועה כדי לווסת את הקורטיזול.\nזמן: **15:00**, אחר הצהריים.')">
+                <div class="card-title">אשווגנדה KSM-66 + L-תיאנין</div>
+                <p>Nature's Truth</p>
+                <div class="card-details">
+                    <div class="dose">מינון: 1 כמוסה</div>
+                    <div class="time">זמן: 15:00, אחר הצהריים</div>
+                </div>
+            </div>
+        </div>
+
+        <h3 style="color: #6c757d;">🌙 ערב (הרגעה ושינה)</h3>
+        <div class="supplements-grid">
+            <div class="supplement-card psyllium-card" onclick="showPopup('פסיליום - Whole Psyllium Husks', 'תפקיד מרכזי: סיבים תזונתיים מסיסים התורמים לאיזון שומנים (לכידת כולסטרול במעי) וסוכר.\n**אופן נטילה**: לערבב בכוס מים גדולה (לפחות 350 מ״ל) ולשתות **מיד**. **חובה לשתות עוד מים לאחר מכן** כדי למנוע חסימה.\nמינון: כפית שטוחה (5 גר׳).')">
+                <div class="card-title">פסיליום (פעם 2 מ-2)</div>
+                <p>Whole Psyllium Husks</p>
+                <div class="card-details">
+                    <div class="dose">מינון: 5 גר׳</div>
+                    <div class="time">זמן: 19:00, לפני תוספי שינה</div>
+                </div>
+            </div>
+
+            <div class="supplement-card evening-card" onclick="showPopup('מגנזיום גליצינאט (NOW Foods)', 'תפקיד מרכזי: הרפיית שרירים, הורדת עוררות עצבית וסיוע בהכנה לשינה עמוקה.\n**הערה**: צורת הגליצינאט היא המומלצת ביותר להרגעה.\nזמן: **21:00**, 90 דק׳ לפני השינה.')">
+                <div class="card-title">מגנזיום גליצינאט</div>
+                <p>NOW Foods</p>
+                <div class="card-details">
+                    <div class="dose">מינון: 200 מ״ג</div>
+                    <div class="time">זמן: 21:00, לפני השינה</div>
+                </div>
+            </div>
+            <div class="supplement-card evening-card" onclick="showPopup('טאורין (NOW Foods)', 'תפקיד מרכזי: חומצת אמינו המגבירה פעילות של המוליך העצבי GABA, המסייע בהרגעה, הפחתת דאגנות ושיפור ההירדמות.\n**נטילה**: מומלץ לקחת יחד עם המגנזיום.\nזמן: **21:00**, יחד עם המגנזיום.')">
+                <div class="card-title">טאורין</div>
+                <p>NOW Foods</p>
+                <div class="card-details">
+                    <div class="dose">מינון: 1,000 מ״ג</div>
+                    <div class="time">זמן: 21:00, יחד עם המגנזיום</div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="notes-section">
+            <h2>⭐ דגשים חשובים לביצוע</h2>
+
+            <div class="note-item">
+                <strong>הליכה קלה 🚶‍♂️</strong>
+                <p>• הקפד על **10–15 דקות ביום בחוץ** – פעילות מתונה זו מספיקה כדי להוריד את רמת קורטיזול באופן משמעותי.</p>
+                <p>• זמן מומלץ: **15:30** (מיד לאחר נטילת האשווגנדה).</p>
+            </div>
+
+            <div class="note-item">
+                <strong>התחלה הדרגתית 🐢</strong>
+                <p>• אם יש עומס – התחל רק עם **מגנזיום + טאורין** בשבוע הראשון. הוסף את שאר התוספים בהדרגה, אחד בכל כמה ימים, לפי הסדר.</p>
+            </div>
+        </div>
+
+        <div class="reminder-app">
+            <h2>✅ מעקב יומיומי: האם לקחתי?</h2>
+            
+            <div class="reminder-section">
+                <h3>☀️ בוקר (06:30–10:00)</h3>
+                <div class="reminder-item">
+                    <div class="item-details">
+                        <span class="time-slot">06:30</span><span>L-Tyrosine</span> (על בטן ריקה)
+                    </div>
+                    <div class="checkbox-container">
+                        <input type="checkbox" id="morning-tyrosine" data-time-slot="morning">
+                        <label for="morning-tyrosine"></label>
+                    </div>
+                </div>
+                <div class="reminder-item">
+                    <div class="item-details">
+                        <span class="time-slot">07:45</span><span>ברברין</span> (לפני ארוחת בוקר)
+                    </div>
+                    <div class="checkbox-container">
+                        <input type="checkbox" id="morning-berberine" data-time-slot="morning">
+                        <label for="morning-berberine"></label>
+                    </div>
+                </div>
+                <div class="reminder-item">
+                    <div class="item-details">
+                        <span class="time-slot">08:00</span><span>קומפלקס ויטמיני B</span> (עם האוכל)
+                    </div>
+                    <div class="checkbox-container">
+                        <input type="checkbox" id="morning-bcomplex" data-time-slot="morning">
+                        <label for="morning-bcomplex"></label>
+                    </div>
+                </div>
+                <div class="reminder-item">
+                    <div class="item-details">
+                        <span class="time-slot">10:00</span><span>פסיליום</span> (פעם 1)
+                    </div>
+                    <div class="checkbox-container">
+                        <input type="checkbox" id="morning-psyllium" data-time-slot="morning">
+                        <label for="morning-psyllium"></label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="reminder-section">
+                <h3>צהריים / אחר הצהריים (12:00–15:30)</h3>
+                <div class="reminder-item">
+                    <div class="item-details">
+                        <span class="time-slot">12:00</span><span>אומגה 3</span> (עם ארוחת צהריים)
+                    </div>
+                    <div class="checkbox-container">
+                        <input type="checkbox" id="noon-omega" data-time-slot="noon">
+                        <label for="noon-omega"></label>
+                    </div>
+                </div>
+                <div class="reminder-item">
+                    <div class="item-details">
+                        <span class="time-slot">15:00</span><span>אשווגנדה + L-תיאנין</span> (להרגעה)
+                    </div>
+                    <div class="checkbox-container">
+                        <input type="checkbox" id="noon-ashwagandha" data-time-slot="noon">
+                        <label for="noon-ashwagandha"></label>
+                    </div>
+                </div>
+                <div class="reminder-item">
+                    <div class="item-details">
+                        <span class="time-slot">15:30</span><span>הליכה קלה</span> (10–15 דקות בחוץ)
+                    </div>
+                    <div class="checkbox-container">
+                        <input type="checkbox" id="noon-walk" data-time-slot="noon">
+                        <label for="noon-walk"></label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="reminder-section" style="border-bottom: none; padding-bottom: 0;">
+                <h3>🌙 ערב (19:00–21:00)</h3>
+                <div class="reminder-item">
+                    <div class="item-details">
+                        <span class="time-slot">19:00</span><span>פסיליום</span> (פעם שנייה)
+                    </div>
+                    <div class="checkbox-container">
+                        <input type="checkbox" id="evening-psyllium" data-time-slot="evening">
+                        <label for="evening-psyllium"></label>
+                    </div>
+                </div>
+                <div class="reminder-item">
+                    <div class="item-details">
+                        <span class="time-slot">21:00</span><span>מגנזיום גליצינאט</span> (לפני השינה)
+                    </div>
+                    <div class="checkbox-container">
+                        <input type="checkbox" id="evening-magnesium" data-time-slot="evening">
+                        <label for="evening-magnesium"></label>
+                    </div>
+                </div>
+                <div class="reminder-item">
+                    <div class="item-details">
+                        <span class="time-slot">21:00</span><span>טאורין</span> (יחד עם המגנזיום)
+                    </div>
+                    <div class="checkbox-container">
+                        <input type="checkbox" id="evening-taurine" data-time-slot="evening">
+                        <label for="evening-taurine"></label>
+                    </div>
+                </div>
+            </div>
+            <p style="text-align: center; color: #6c757d; font-size: 0.9em; margin-top: 15px;" id="last-reset-date">
+                הסימונים נשמרים מקומית. איפוס יתבצע אוטומטית ביום הבא.
+            </p>
+        </div>
+
+    </div> <div id="myPopup" class="popup">
+        <div class="popup-content">
+            <span class="close-btn" onclick="closePopup()">&times;</span>
+            <h3 id="popupTitle"></h3>
+            <p id="popupText"></p>
+        </div>
+    </div>
+
+    <script>
+        // --- קוד Service Worker (הרשמה) ---
+        // קוד זה אחראי על שמירת הקבצים מקומית ועבודה במצב Offline
+        // הוא מוטמע ישירות ב-index.html כדי למנוע קובץ נוסף
+        if ('serviceWorker' in navigator) {
+          window.addEventListener('load', function() {
+            const swCode = `
+              const CACHE_NAME = 'supplements-cache-v1';
+              const urlsToCache = [
+                './',
+                'index.html' 
+              ];
+            
+              self.addEventListener('install', event => {
+                self.skipWaiting();
+                event.waitUntil(
+                  caches.open(CACHE_NAME)
+                    .then(cache => {
+                      // שים לב: ב-GitHub Pages, ייתכן שתצטרך רק את השם של index.html
+                      return cache.addAll(urlsToCache);
+                    })
+                );
+              });
+            
+              self.addEventListener('fetch', event => {
+                event.respondWith(
+                  caches.match(event.request)
+                    .then(response => {
+                      if (response) {
+                        return response;
+                      }
+                      return fetch(event.request);
+                    })
+                );
+              });
+
+              // פונקציה שתאפשר התראות דרך ה-Service Worker (דרוש עבור התראות רקע)
+              self.addEventListener('notificationclick', event => {
+                event.notification.close();
+                event.waitUntil(
+                  clients.matchAll({ type: 'window', includeUncontrolled: true }).then(function(clientList) {
+                    for (let i = 0; i < clientList.length; i++) {
+                      let client = clientList[i];
+                      if ('focus' in client)
+                        return client.focus();
+                    }
+                    if (clients.openWindow)
+                      return clients.openWindow('/');
+                  })
+                );
+              });
+            `;
+
+            const swBlob = new Blob([swCode], {type: 'application/javascript'});
+            const swUrl = URL.createObjectURL(swBlob);
+
+            navigator.serviceWorker.register(swUrl).then(function(registration) {
+              console.log('Service Worker registered successfully with scope: ', registration.scope);
+            }, function(err) {
+              console.log('Service Worker registration failed: ', err);
+            });
+          });
+        }
+        
+        // --- קוד לוגיקה מקומית (Popups, Checkbox, PWA Reminders) ---
+
+        const CHECKBOX_KEY = 'dailyCheckboxesState';
+        const LAST_RESET_KEY = 'lastResetDate';
+
+        // 1. שמירה וטעינת מצב הצ'קבוקסים
+        function saveState() {
+            const state = {};
+            document.querySelectorAll('.reminder-item input[type="checkbox"]').forEach(checkbox => {
+                state[checkbox.id] = checkbox.checked;
+            });
+            localStorage.setItem(CHECKBOX_KEY, JSON.stringify(state));
+        }
+
+        function loadState() {
+            const state = JSON.parse(localStorage.getItem(CHECKBOX_KEY));
+            if (state) {
+                document.querySelectorAll('.reminder-item input[type="checkbox"]').forEach(checkbox => {
+                    checkbox.checked = state[checkbox.id] || false;
+                    checkbox.addEventListener('change', () => {
+                        saveState();
+                        triggerVibration(); // רטט קצר לאחר סימון
+                    });
+                });
+            } else {
+                // אם אין מצב שמור, עדיין יש להוסיף מאזינים
+                document.querySelectorAll('.reminder-item input[type="checkbox"]').forEach(checkbox => {
+                    checkbox.addEventListener('change', () => {
+                        saveState();
+                        triggerVibration();
+                    });
+                });
+            }
+            checkAndResetDaily();
+        }
+
+        // 2. איפוס יומי
+        function checkAndResetDaily() {
+            const today = new Date().toDateString();
+            const lastReset = localStorage.getItem(LAST_RESET_KEY);
+            const dateDisplay = document.getElementById('last-reset-date');
+
+            if (lastReset !== today) {
+                // איפוס
+                document.querySelectorAll('.reminder-item input[type="checkbox"]').forEach(checkbox => {
+                    checkbox.checked = false;
+                });
+                saveState();
+                localStorage.setItem(LAST_RESET_KEY, today);
+                dateDisplay.innerHTML = `הסימונים אופסו אוטומטית עבור יום ${today}.`;
+            } else {
+                 dateDisplay.innerHTML = `הסימונים נשמרו עבור יום ${today}. איפוס יתבצע אוטומטית מחר.`;
+            }
+        }
+        
+        // 3. לוגיקת Pop-up
+        const popup = document.getElementById('myPopup');
+        const popupTitle = document.getElementById('popupTitle');
+        const popupText = document.getElementById('popupText');
+
+        function showPopup(title, text) {
+            popupTitle.textContent = title;
+            popupText.textContent = text;
+            popup.style.display = 'block';
+        }
+
+        function closePopup() {
+            popup.style.display = 'none';
+        }
+
+        // סגירת הפופאפ בלחיצה מחוץ לתוכן
+        window.onclick = function(event) {
+            if (event.target == popup) {
+                closePopup();
+            }
+        }
+        
+        // 4. קוד PWA: Notifications ו-Vibration
+
+        const reminders = [
+            { time: "06:30", title: "זמן תוספים: בוקר", body: "L-Tyrosine – על בטן ריקה!" },
+            { time: "07:45", title: "זמן תוספים", body: "ברברין – לפני ארוחת הבוקר." },
+            { time: "08:00", title: "זמן תוספים", body: "קומפלקס ויטמיני B – עם ארוחת הבוקר." },
+            { time: "10:00", title: "זמן סיבים: פעם 1", body: "פסיליום – עם המון מים!" },
+            { time: "12:00", timeOffset: 1, title: "זמן תוספים: צהריים", body: "אומגה 3 – עם ארוחת צהריים (הארוחה הגדולה)." },
+            { time: "15:00", timeOffset: 2, title: "זמן הרגעה", body: "אשווגנדה + L-תיאנין – להורדת קורטיזול." },
+            { time: "19:00", timeOffset: 3, title: "זמן סיבים: פעם 2", body: "פסיליום – עם המון מים!" },
+            { time: "21:00", timeOffset: 4, title: "זמן שינה", body: "מגנזיום גליצינאט + טאורין – להירדמות קלה." }
+        ];
+
+        // 4א. בקשת הרשאה (נקרא ב-body onload)
+        function requestNotificationPermission() {
+            if ('Notification' in window && Notification.permission !== 'granted' && Notification.permission !== 'denied') {
+                Notification.requestPermission().then(permission => {
+                    if (permission === 'granted') {
+                        console.log('Notification permission granted.');
+                    } else {
+                        console.log('Notification permission denied.');
+                    }
+                });
+            }
+        }
+
+        // 4ב. הפעלת רטט
+        function triggerVibration() {
+            // רטט מורכב שמדמה התראה
+            if ('vibrate' in navigator) {
+                navigator.vibrate([200, 100, 200]); 
+            }
+        }
+
+        // 4ג. הצגת התראה
+        function showPwaReminder(title, body) {
+            if (Notification.permission === 'granted') {
+                // שימוש ב-Service Worker להצגת התראות רקע
+                if ('serviceWorker' in navigator && navigator.serviceWorker.controller) {
+                    navigator.serviceWorker.ready.then(registration => {
+                        registration.showNotification(title, {
+                            body: body,
+                            icon: 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MTIgNTEyIj48ZGVmcz48bGluZWFyR3JhZGllbnQgaWQ9ImEiIHgxPSIuMDc2IiB5MT0iLjAyNyIgeDI9Ijk1NyUiIHkyPSI5NzMlIiBncmFkaWVudFVuaXRzPSJvYmplY3RCb3VuZGluZ0JveCI+PHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjZmZmZmZmIi8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjMjc3OWZmIi8+PC9saW5lYXJHcmFkaWVudD48L2RlZnM+PHBhdGggZmlsbD0idXJsKCNhKSIgZD0iTTM1OC43IDQ3LjljMjkuNCAzMC40IDQ1LjIgNzEuNSA0NS4yIDExNS41IDAgNDQtMTUuOCA4NS4xLTQ1LjIgMTE1LjVMMTEyLjcgNjUuOGwxMTUuNCA0NS4zeiIvPjxwYXRoIGZpbGw9IiNmZmZmZmYiIGQ9Ik00MjQgMTEwLjNsLTE1LjUgMTUuNUwyOTkgNDQyLjlsMjQgMTIuMWMxMTQuMi00NS4xIDE4MS40LTY5LjEgMTgxLjQtMTYwLjUgMC0yOC41LTMuNy00OC4xLTktNjQuNGwtNTMuMiA1My4yYy0xLjMtLjItMy43LS40LTMuNy0uNHoiLz48cGF0aCBmaWxsPSJ1cmwoI2EpIiIgZD0iTTI1NC4xIDExMS4xYy0xOS4yLS4yLTM4LjEtMS44LTU2LjctNS4xTDQ1MSAxNjhjLTY2LjQgMjYuMi0xMzMuNCA0MC0yMDMgNDAtNjkuOCAwLTEzNy40LTEzLjYtMjAzLjYtNDAuMkwyMDEuOSA5Ni41eiIvPjxwYXRoIGZpbGw9IiNmZmZmZmYiIGQ9Ik0xMDIuNSA0NDAuOWMtNTQuMi01NC4yLTg0LjEtMTI2LjItODQuMS0yMDMuMSAwLTM0IDUuNy02OS4xIDE2LjctMTAxLjYuMS0uNC4yLS43LjMtMS4yLS41LS44LTEuMS0xLjYtMS43LTIuNCAzNy4yLTU4LjkgNTcuNy0xMjUuMSA1Ny43LTE5Mi41IDAgNzcuNiAzMC4xIDE0OC41IDg0LjEgMjAyLjUgNTQuNiA1NC42IDEyOS4yIDg0LjYgMjAyLjUgODQuNiA3NyAwIDE0Ny41LTMwLjEgMjAyLjUtODQuMS4yLS4zLjMtLjYuNi0uOXptLTEzNS4zLTE3NC40Yy05LjkgMjcuOC0yMC4xIDQ3LjQtMjcuNyA3Ni43LTcuNyAyOS4zLTEyLjggMzIuNC0xMy44IDM4LjYtLjIgMS4xLS4zIDIuMy0uMyAzLjQgMCAzNy4yIDE0LjUgMTA0LjEgMzkuMyAxNTkuOXptMTk2LjggMTU3LjdMMzE0LjkgMTY3LjJjLTQ4LjYtMTIuNi0xMDIuMS0xOS4yLTE1Ni45LTE5LjItMjguMyAwLTU1LjQgMi4zLTgyLjUgNi42em0tOTEuMSA0MS40Yy02LjcgMy41LTEzLjUgNy4yLTIwLjUgMTEtNC45IDIuNy0xMC41IDUuNi0xNi41IDguNy0xMS43IDYtMjEuMiA1LjUtMjkuNSAzLjItMTcuNS03LjQtMjQuNy02LjMtMzIuMS00LTYxLjQgMTguMS0xMDAuNCAyMC0xMjMuMSAxLjEtMjcuMS0yMi41LTQzLjEtNjcuNi00My4xLTExNi42IDAtMzEuMiA2LjItNTkuOSA3LjYtNjMuMWwuMi0uNWwuNC0xLjlsMTIuMi0xMi4zIDUyLjIgNTEuNWM0IDQtMTEuNCA1NS42LTU1LjkgOTkuOS00LjcgNC43LTE2LjUgMTUuNi0xNy43IDE3em00MjYuNi0xMjMuOWMtLjktLjctMS44LTEuNC0yLjctMi4xLTUuNi0zLjktMTEuMy03LjktMTYuOS0xMi4yLTI2LjMtMjEuMy01MS45LTI5LjEtODcuMS0yNC4yLTUuNCAuNy0xMC44IDEuOC0xNi4zIDMtMTEuMiAyLjQtMjEuOCAzLjktMzIuNSAzLjktMTIuNiAwLTI0LjktMi41LTM3LjEtN3oiLz48L3N2Zz4=', // סמל מובנה ב-Base64
+                            vibrate: [200, 100, 200]
+                        });
+                    });
+                } else {
+                    // fallback להתראה רגילה בדפדפן
+                    new Notification(title, { body: body });
+                    triggerVibration();
+                }
+            } 
+        }
+
+        // 4ד. מנגנון תזמון ה-PWA
+        // הערה: תזמון זה עובד רק כאשר הדפדפן/PWA פתוח או פועל ברקע (תלוי דפדפן).
+        function setupPwaReminders() {
+            const interval = 60000; // בדיקה כל דקה
+            
+            setInterval(() => {
+                const now = new Date();
+                const currentHour = now.getHours();
+                const currentMinute = now.getMinutes();
+                const currentTime = `${String(currentHour).padStart(2, '0')}:${String(currentMinute).padStart(2, '0')}`;
+
+                reminders.forEach(reminder => {
+                    // בדיקה אם השעה הנוכחית תואמת את זמן התזכורת
+                    if (reminder.time === currentTime) {
+                        showPwaReminder(reminder.title, reminder.body);
+                        console.log(`PWA Reminder fired: ${reminder.title}`);
+                    }
+                });
+            }, interval);
+        }
+
+        // --- אתחול ---
+        window.addEventListener('load', loadState);
+    </script>
+</body>
+</html>
