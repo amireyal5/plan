@@ -7,6 +7,10 @@
     
     <link rel="manifest" href="manifest.json">
     
+    <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
+
+    <link rel="apple-touch-icon" href="icon-192.png">
+    
     <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;700&display=swap" rel="stylesheet">
     
     <style>
@@ -342,25 +346,6 @@
             to { opacity: 1; transform: scale(1); }
         }
     </style>
-    
-    <script id="manifest-data" type="application/json">
-        {
-          "name": "תזכורת תוספים - איתן",
-          "short_name": "תוספים",
-          "description": "אפליקציית מעקב אחר תוספים יומיומיים",
-          "start_url": "./",
-          "display": "standalone",
-          "background_color": "#ffffff",
-          "theme_color": "#007bff",
-          "icons": [
-            {
-              "src": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MTIgNTEyIj48ZGVmcz48bGluZWFyR3JhZGllbnQgaWQ9ImEiIHgxPSIuMDc2IiB5MT0iLjAyNyIgeDI9Ijk1NyUiIHkyPSI5NzMlIiBncmFkaWVudFVuaXRzPSJvYmplY3RCb3VuZGluZ0JveCI+PHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjZmZmZmZmIi8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjMjc3OWZmIi8+PC9saW5lYXJHcmFkaWVudD48L2RlZnM+PHBhdGggZmlsbD0idXJsKCNhKSIgZD0iTTM1OC43IDQ3LjljMjkuNCAzMC40IDQ1LjIgNzEuNSA0NS4yIDExNS41IDAgNDQtMTUuOCA4NS4xLTQ1LjIgMTE1LjVMMTEyLjcgNjUuOGwxMTUuNCA0NS4zeiIvPjxwYXRoIGZpbGw9IiNmZmZmZmYiIGQ9Ik00MjQgMTEwLjNsLTE1LjUgMTUuNUwyOTkgNDQyLjlsMjQgMTIuMWMxMTQuMi00NS4xIDE4MS40LTY5LjEgMTgxLjQtMTYwLjUgMC0yOC41LTMuNy00OC4xLTktNjQuNGwtNTMuMiA1My4yYy0xLjMtLjItMy43LS40LTMuNy0uNHoiLz48cGF0aCBmaWxsPSJ1cmwoI2EpIiIgZD0iTTI1NC4xIDExMS4xYy0xOS4yLS4yLTM4LjEtMS44LTU2LjctNS4xTDQ1MSAxNjhjLTY2LjQgMjYuMi0xMzMuNCA0MC0yMDMgNDAtNjkuOCAwLTEzNy40LTEzLjYtMjAzLjYtNDAuMkwyMDEuOSA5Ni41eiIvPjxwYXRoIGZpbGw9IiNmZmZmZmYiIGQ9Ik0xMDIuNSA0NDAuOWMtNTQuMi01NC4yLTg0LjEtMTI2LjItODQuMS0yMDMuMSAwLTM0IDUuNy02OS4xIDE2LjctMTAxLjYuMS0uNC4yLS43LjMtMS4yLS41LS44LTEuMS0xLjYtMS43LTIuNCAzNy4yLTU4LjkgNTcuNy0xMjUuMSA1Ny43LTE5Mi41IDAgNzcuNiAzMC4xIDE0OC41IDg0LjEgMjAyLjUgNTQuNiA1NC42IDEyOS4yIDg0LjYgMjAyLjUgODQuNiA3NyAwIDE0Ny41LTMwLjEgMjAyLjUtODQuMS4yLS4zLjMtLjYuNi0uOXptLTEzNS4zLTE3NC40Yy05LjkgMjcuOC0yMC4xIDQ3LjQtMjcuNyA3Ni43LTcuNyAyOS4zLTEyLjggMzIuNC0xMy44IDM4LjYtLjIgMS4xLS4zIDIuMy0uMyAzLjQgMCAzNy4yIDE0LjUgMTA0LjEgMzkuMyAxNTkuOXptMTk2LjggMTU3LjdMMzE0LjkgMTY3LjJjLTQ4LjYtMTIuNi0xMDIuMS0xOS4yLTE1Ni45LTE5LjItMjguMyAwLTU1LjQgMi4zLTgyLjUgNi42em0tOTEuMSA0MS40Yy02LjcgMy41LTEzLjUgNy4yLTIwLjUgMTEtNC45IDIuNy0xMC41IDUuNi0xNi41IDguNy0xMS43IDYtMjEuMiA1LjUtMjkuNSAzLjItMTcuNS03LjQtMjQuNy02LjMtMzIuMS00LTYxLjQgMTguMS0xMDAuNCAyMC0xMjMuMSAxLjEtMjcuMS0yMi41LTQzLjEtNjcuNi00My4xLTExNi42IDAtMzEuMiA2LjItNTkuOSA3LjYtNjMuMWwuMi0uNWwuNC0xLjFsMTIuMi0xMi4zIDUyLjIgNTEuNWM0IDQtMTEuNCA1NS42LTU1LjkgOTkuOS00LjcgNC43LTE2LjUgMTUuNi0xNy43IDE3em00MjYuNi0xMjMuOWMtLjktLjctMS44LTEuNC0yLjctMi4xLTUuNi0zLjktMTEuMy03LjktMTYuOS0xMi4yLTI2LjMtMjEuMy01MS45LTI5LjEtODcuMS0yNC4yLTUuNCAuNy0xMC44IDEuOC0xNi4zIDMtMTEuMiAyLjQtMjEuOCAzLjktMzIuNSAzLjktMTIuNiAwLTI0LjktMi41LTM3LjEtN3oiLz48L3N2Zz4=',
-              "sizes": "512x512",
-              "type": "image/svg+xml"
-            }
-          ]
-        }
-    </script>
 </head>
 <body onload="requestNotificationPermission()">
 
@@ -603,62 +588,12 @@
     </div>
 
     <script>
-        // --- קוד Service Worker (הרשמה) ---
-        // קוד זה אחראי על שמירת הקבצים מקומית ועבודה במצב Offline
-        // הוא מוטמע ישירות ב-index.html כדי למנוע קובץ נוסף
+        // --- קוד Service Worker (הרשמה לקובץ חיצוני sw.js) ---
+        // *** חובה ליצור קובץ sw.js נפרד באותה תיקייה! ***
         if ('serviceWorker' in navigator) {
           window.addEventListener('load', function() {
-            const swCode = `
-              const CACHE_NAME = 'supplements-cache-v1';
-              const urlsToCache = [
-                './',
-                'index.html' 
-              ];
-            
-              self.addEventListener('install', event => {
-                self.skipWaiting();
-                event.waitUntil(
-                  caches.open(CACHE_NAME)
-                    .then(cache => {
-                      // שים לב: ב-GitHub Pages, ייתכן שתצטרך רק את השם של index.html
-                      return cache.addAll(urlsToCache);
-                    })
-                );
-              });
-            
-              self.addEventListener('fetch', event => {
-                event.respondWith(
-                  caches.match(event.request)
-                    .then(response => {
-                      if (response) {
-                        return response;
-                      }
-                      return fetch(event.request);
-                    })
-                );
-              });
-
-              // פונקציה שתאפשר התראות דרך ה-Service Worker (דרוש עבור התראות רקע)
-              self.addEventListener('notificationclick', event => {
-                event.notification.close();
-                event.waitUntil(
-                  clients.matchAll({ type: 'window', includeUncontrolled: true }).then(function(clientList) {
-                    for (let i = 0; i < clientList.length; i++) {
-                      let client = clientList[i];
-                      if ('focus' in client)
-                        return client.focus();
-                    }
-                    if (clients.openWindow)
-                      return clients.openWindow('/');
-                  })
-                );
-              });
-            `;
-
-            const swBlob = new Blob([swCode], {type: 'application/javascript'});
-            const swUrl = URL.createObjectURL(swBlob);
-
-            navigator.serviceWorker.register(swUrl).then(function(registration) {
+            // רושם את ה-Service Worker מקובץ חיצוני
+            navigator.serviceWorker.register('/sw.js', { scope: './' }).then(function(registration) {
               console.log('Service Worker registered successfully with scope: ', registration.scope);
             }, function(err) {
               console.log('Service Worker registration failed: ', err);
@@ -750,7 +685,7 @@
             { time: "07:45", title: "זמן תוספים", body: "ברברין – לפני ארוחת הבוקר." },
             { time: "08:00", title: "זמן תוספים", body: "קומפלקס ויטמיני B – עם ארוחת הבוקר." },
             { time: "10:00", title: "זמן סיבים: פעם 1", body: "פסיליום – עם המון מים!" },
-            { time: "12:00", timeOffset: 1, title: "זמן תוספים: צהריים", body: "אומגה 3 – עם ארוחת צהריים (הארוחה הגדולה)." },
+            { time: "12:00", timeOffset: 1, title: "זמן תוספים: צהריים", body: "אומגה 3 – עם ארוחת צהריים (הארוכל הגדולה)." },
             { time: "15:00", timeOffset: 2, title: "זמן הרגעה", body: "אשווגנדה + L-תיאנין – להורדת קורטיזול." },
             { time: "19:00", timeOffset: 3, title: "זמן סיבים: פעם 2", body: "פסיליום – עם המון מים!" },
             { time: "21:00", timeOffset: 4, title: "זמן שינה", body: "מגנזיום גליצינאט + טאורין – להירדמות קלה." }
@@ -762,10 +697,13 @@
                 Notification.requestPermission().then(permission => {
                     if (permission === 'granted') {
                         console.log('Notification permission granted.');
+                        setupPwaReminders(); // הפעלת התזמון רק לאחר קבלת הרשאה
                     } else {
                         console.log('Notification permission denied.');
                     }
                 });
+            } else if (Notification.permission === 'granted') {
+                 setupPwaReminders();
             }
         }
 
@@ -785,7 +723,7 @@
                     navigator.serviceWorker.ready.then(registration => {
                         registration.showNotification(title, {
                             body: body,
-                            icon: 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MTIgNTEyIj48ZGVmcz48bGluZWFyR3JhZGllbnQgaWQ9ImEiIHgxPSIuMDc2IiB5MT0iLjAyNyIgeDI9Ijk1NyUiIHkyPSI5NzMlIiBncmFkaWVudFVuaXRzPSJvYmplY3RCb3VuZGluZ0JveCI+PHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjZmZmZmZmIi8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjMjc3OWZmIi8+PC9saW5lYXJHcmFkaWVudD48L2RlZnM+PHBhdGggZmlsbD0idXJsKCNhKSIgZD0iTTM1OC43IDQ3LjljMjkuNCAzMC40IDQ1LjIgNzEuNSA0NS4yIDExNS41IDAgNDQtMTUuOCA4NS4xLTQ1LjIgMTE1LjVMMTEyLjcgNjUuOGwxMTUuNCA0NS4zeiIvPjxwYXRoIGZpbGw9IiNmZmZmZmYiIGQ9Ik00MjQgMTEwLjNsLTE1LjUgMTUuNUwyOTkgNDQyLjlsMjQgMTIuMWMxMTQuMi00NS4xIDE4MS40LTY5LjEgMTgxLjQtMTYwLjUgMC0yOC41LTMuNy00OC4xLTktNjQuNGwtNTMuMiA1My4yYy0xLjMtLjItMy43LS40LTMuNy0uNHoiLz48cGF0aCBmaWxsPSJ1cmwoI2EpIiIgZD0iTTI1NC4xIDExMS4xYy0xOS4yLS4yLTM4LjEtMS44LTU2LjctNS4xTDQ1MSAxNjhjLTY2LjQgMjYuMi0xMzMuNCA0MC0yMDMgNDAtNjkuOCAwLTEzNy40LTEzLjYtMjAzLjYtNDAuMkwyMDEuOSA5Ni41eiIvPjxwYXRoIGZpbGw9IiNmZmZmZmYiIGQ9Ik0xMDIuNSA0NDAuOWMtNTQuMi01NC4yLTg0LjEtMTI2LjItODQuMS0yMDMuMSAwLTM0IDUuNy02OS4xIDE2LjctMTAxLjYuMS0uNC4yLS43LjMtMS4yLS41LS44LTEuMS0xLjYtMS43LTIuNCAzNy4yLTU4LjkgNTcuNy0xMjUuMSA1Ny43LTE5Mi41IDAgNzcuNiAzMC4xIDE0OC41IDg0LjEgMjAyLjUgNTQuNiA1NC42IDEyOS4yIDg0LjYgMjAyLjUgODQuNiA3NyAwIDE0Ny41LTMwLjEgMjAyLjUtODQuMS4yLS4zLjMtLjYuNi0uOXptLTEzNS4zLTE3NC40Yy05LjkgMjcuOC0yMC4xIDQ3LjQtMjcuNyA3Ni43LTcuNyAyOS4zLTEyLjggMzIuNC0xMy44IDM4LjYtLjIgMS4xLS4zIDIuMy0uMyAzLjQgMCAzNy4yIDE0LjUgMTA0LjEgMzkuMyAxNTkuOXptMTk2LjggMTU3LjdMMzE0LjkgMTY3LjJjLTQ4LjYtMTIuNi0xMDIuMS0xOS4yLTE1Ni45LTE5LjItMjguMyAwLTU1LjQgMi4zLTgyLjUgNi42em0tOTEuMSA0MS40Yy02LjcgMy41LTEzLjUgNy4yLTIwLjUgMTEtNC45IDIuNy0xMC41IDUuNi0xNi41IDguNy0xMS43IDYtMjEuMiA1LjUtMjkuNSAzLjItMTcuNS03LjQtMjQuNy02LjMtMzIuMS00LTYxLjQgMTguMS0xMDAuNCAyMC0xMjMuMSAxLjEtMjcuMS0yMi41LTQzLjEtNjcuNi00My4xLTExNi42IDAtMzEuMiA2LjItNTkuOSA3LjYtNjMuMWwuMi0uNWwuNC0xLjlsMTIuMi0xMi4zIDUyLjIgNTEuNWM0IDQtMTEuNCA1NS42LTU1LjkgOTkuOS00LjcgNC43LTE2LjUgMTUuNi0xNy43IDE3em00MjYuNi0xMjMuOWMtLjktLjctMS44LTEuNC0yLjctMi4xLTUuNi0zLjktMTEuMy03LjktMTYuOS0xMi4yLTI2LjMtMjEuMy01MS45LTI5LjEtODcuMS0yNC4yLTUuNCAuNy0xMC44IDEuOC0xNi4zIDMtMTEuMiAyLjQtMjEuOCAzLjktMzIuNSAzLjktMTIuNiAwLTI0LjktMi41LTM3LjEtN3oiLz48L3N2Zz4=', // סמל מובנה ב-Base64
+                            icon: 'icon-192.png', // משתמש בקובץ האייקון החדש
                             vibrate: [200, 100, 200]
                         });
                     });
@@ -798,7 +736,7 @@
         }
 
         // 4ד. מנגנון תזמון ה-PWA
-        // הערה: תזמון זה עובד רק כאשר הדפדפן/PWA פתוח או פועל ברקע (תלוי דפדפן).
+        // הערה: תזמון זה עובד רק כאשר הדפדפן/PWA פתוח או פועל ברקע.
         function setupPwaReminders() {
             const interval = 60000; // בדיקה כל דקה
             
