@@ -7,10 +7,6 @@
     
     <link rel="manifest" href="manifest.json">
     
-    <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
-
-    <link rel="apple-touch-icon" href="icon-192.png">
-    
     <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;700&display=swap" rel="stylesheet">
     
     <style>
@@ -279,6 +275,79 @@
             transform: translate(-50%, -50%);
             line-height: 1;
         }
+        
+        /* --- סטיילינג לניטור היומי המורחב (Self-Assessment) --- */
+        .mood-assessment {
+            margin-top: 25px;
+            padding: 15px;
+            background-color: #f0f4f8; /* רקע בהיר יותר */
+            border-radius: 10px;
+            border: 1px solid #dcdcdc;
+        }
+
+        .mood-assessment h3 {
+            color: #5b5b5b;
+            border-bottom: 2px dashed #a0a0a0;
+            padding-bottom: 5px;
+            margin-bottom: 15px;
+        }
+
+        .rating-item {
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .rating-scale {
+            display: flex;
+            justify-content: space-between;
+            direction: ltr; /* יישור משמאל לימין לסקאלה */
+            margin-top: 5px;
+        }
+
+        .rating-scale label {
+            display: inline-block;
+            padding: 5px 8px;
+            border: 1px solid #ccc;
+            border-radius: 50%;
+            cursor: pointer;
+            font-weight: 400;
+            transition: background-color 0.2s, color 0.2s;
+            font-size: 0.9em;
+        }
+
+        .rating-scale input[type="radio"] {
+            display: none;
+        }
+
+        .rating-scale input[type="radio"]:checked + label {
+            background-color: #007bff;
+            color: white;
+            border-color: #007bff;
+            font-weight: 700;
+        }
+
+        /* סגנון לסקאלות 1-5 */
+        .rating-scale-5 label {
+            width: 30px;
+            height: 30px;
+            line-height: 18px;
+            text-align: center;
+        }
+
+        /* סגנון לקטע בדיקות הביניים */
+        .midpoint-check {
+            background-color: #ffffe0;
+            border-right: 5px solid #ffa500;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 30px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+
+        .midpoint-check h2 {
+            color: #e65100;
+            border-right-color: #e65100;
+        }
 
         /* --- סטיילינג פופאפ (Popup) --- */
         .popup {
@@ -346,6 +415,25 @@
             to { opacity: 1; transform: scale(1); }
         }
     </style>
+    
+    <script id="manifest-data" type="application/json">
+        {
+          "name": "תזכורת תוספים - איתן",
+          "short_name": "תוספים",
+          "description": "אפליקציית מעקב אחר תוספים יומיומיים",
+          "start_url": "./",
+          "display": "standalone",
+          "background_color": "#ffffff",
+          "theme_color": "#007bff",
+          "icons": [
+            {
+              "src": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MTIgNTEyIj48ZGVmcz48bGluZWFyR3JhZGllbnQgaWQ9ImEiIHgxPSIuMDc2IiB5MT0iLjAyNyIgeDI9Ijk1NyUiIHkyPSI5NzMlIiBncmFkaWVudFVuaXRzPSJvYmplY3RCb3VuZGluZ0JveCI+PHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjZmZmZmZmIi8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjMjc3OWZmIi8+PC9saW5lYXJHcmFkaWVudD48L2RlZnM+PHBhdGggZmlsbD0idXJsKCNhIiBkPSJNMzU4LjcgNDcuOWMyOS40IDMwLjQgNDUuMiA3MS41IDQ1LjIgMTE1LjUgMCA0NC0xNS44IDg1LjEtNDUuMiAxMTUuNUwxMTIuNyA2NS44bDExNS40IDQ1LjN6Ii8+PHBhdGggZmlsbD0iI2ZmZmZmZiIgZD0iTTQyNCAxMTAuM2wtMTUuNSAxNS41TDI5OSA0NDIuOWwyNCAxMi4xYzExNC4yLTQ1LjEgMTgxLjQtNjkuMSAxODEuNC0xNjAuNSAwLTI4LjUtMy43LTQ4LjEtOS02NC40bC01My4yIDUzLjJjLTEuMy0uMi0zLjctLjQtMy43LS40eiIvPjxwYXRoIGZpbGw9InVybCgjYSkiIGQ9Ik0yNTQuMSAxMTEuMWMtMTkuMi0uMi0zOC4xLTEuOC01Ni43LTUuMUw0NTEgMTY4Yy02Ni40IDI2LjItMTMzLjQgNDAtMjAzIDQwLTY5LjggMC0xMzcuNC0xMy42LTIwMy42LTQwLjJMMjAxLjkgOTYuNXoiLz48cGF0aCBmaWxsPSIjZmZmZmZmIiBkPSJNMTAyLjUgNDQwLjljLTU0LjItNTQuMi04NC4xLTEyNi4yLTg0LjEtMjAzLjEgMC0zNCA1LjctNjkuMSAxNi43LTEwMS42LjEtLjQuMi0uNy4zLTEuMi0uNS0uOC0xLjEtMS42LTEuNy0yLjQgMzcuMi01OC45IDU3LjctMTI1LjEgNTcuNy0xOTIuNSAwIDc3LjYgMzAuMSAxNDguNSA4NC4xIDIwMi41IDU0LjYgNTQuNiAxMjkuMiA4NC42IDIwMi41IDg0LjYgNzcgMCAxNDcuNS0zMC4xIDIwMi41LTg0LjEuMi0uMy4zLS42LjYtLjkzcHptLTEzNS4zLTE3NC40Yy05LjkgMjcuOC0yMC4xIDQ3LjQtMjcuNyA3Ni43LTcuNyAyOS4zLTEyLjggMzIuNC0xMy44IDM4LjYtLjIgMS4xLS4zIDIuMy0uMyAzLjQgMCAzNy4yIDE0LjUgMTA0LjEgMzkuMyAxNTkuOXptMTk2LjggMTU3LjdMMzE0LjkgMTY3LjJjLTQ4LjYtMTIuNi0xMDIuMS0xOS4yLTE1Ni45LTE5LjItMjguMyAwLTU1LjQgMi4zLTgyLjUgNi42em0tOTEuMSA0MS40Yy02LjcgMy41LTEzLjUgNy4yLTIwLjUgMTEtNC45IDIuNy0xMC41IDUuNi0xNi41IDguNy0xMS43IDYtMjEuMiA1LjUtMjkuNSAzLjItMTcuNS03LjQtMjQuNy02LjMtMzIuMS00LTYxLjQgMTguMS0xMDAuNCAyMC0xMjMuMSAxLjEtMjcuMS0yMi41LTQzLjEtNjcuNi00My4xLTExNi42IDAtMzEuMiA2LjItNTkuOSA3LjYtNjMuMWwuMi0uNXwuNC0xLjFsMTIuMi0xMi4zIDUyLjIgNTEuNWM0IDQtMTEuNCA1NS42LTU1LjkgOTkuOS00LjcgNC43LTE2LjUgMTUuNi0xNy43IDE3em00MjYuNi0xMjMuOWMtLjktLjctMS44LTEuNC0yLjctMi4xLTUuNi0zLjktMTEuMy03LjktMTYuOS0xMi4yLTI2LjMtMjEuMy01MS45LTI5LjEtODcuMS0yNC4yLTUuNCAuNy0xMC44IDEuOC0xNi4zIDMtMTEuMiAyLjQtMjEuOCAzLjktMzIuNSAzLjktMTIuNiAwLTI0LjktMi41LTM3LjEtN3oiLz48L3N2Zz4=',
+              "sizes": "512x512",
+              "type": "image/svg+xml"
+            }
+          ]
+        }
+    </script>
 </head>
 <body onload="requestNotificationPermission()">
 
@@ -469,6 +557,20 @@
                 <p>• אם יש עומס – התחל רק עם **מגנזיום + טאורין** בשבוע הראשון. הוסף את שאר התוספים בהדרגה, אחד בכל כמה ימים, לפי הסדר.</p>
             </div>
         </div>
+        
+        <div class="midpoint-check">
+            <h2>🚨 בדיקת ביניים (לאחר 4–6 שבועות)</h2>
+            <p><strong>המטרה:</strong> להעריך את יעילות התוספים ואת הצורך בשינוי מינונים או המשך טיפול.</p>
+            <div class="note-item">
+                <strong>מעקב רפואי 🩸</strong>
+                <p>• יש לבצע בדיקות דם חוזרות (כולסטרול מלא, LDL, HDL, טריגליצרידים) לאחר **4–6 שבועות** מתחילת התוכנית המלאה.</p>
+                <p>• רצוי לבדוק גם את רמת **ויטמין B12** (בשל לקיחת ברברין) ואת רמות **קורטיזול** במידת הצורך.</p>
+            </div>
+            <div class="note-item" style="border-bottom: none;">
+                <strong>מעקב סימפטומים ✨</strong>
+                <p>• השתמש ביומן הניטור למטה כדי להעריך שיפורים ברמת ה**חרדה**, **אנרגיה**, ואיכות ה**שינה**.</p>
+            </div>
+        </div>
 
         <div class="reminder-app">
             <h2>✅ מעקב יומיומי: האם לקחתי?</h2>
@@ -533,18 +635,9 @@
                         <label for="noon-ashwagandha"></label>
                     </div>
                 </div>
-                <div class="reminder-item">
-                    <div class="item-details">
-                        <span class="time-slot">15:30</span><span>הליכה קלה</span> (10–15 דקות בחוץ)
-                    </div>
-                    <div class="checkbox-container">
-                        <input type="checkbox" id="noon-walk" data-time-slot="noon">
-                        <label for="noon-walk"></label>
-                    </div>
-                </div>
             </div>
 
-            <div class="reminder-section" style="border-bottom: none; padding-bottom: 0;">
+            <div class="reminder-section">
                 <h3>🌙 ערב (19:00–21:00)</h3>
                 <div class="reminder-item">
                     <div class="item-details">
@@ -574,12 +667,106 @@
                     </div>
                 </div>
             </div>
+            
+            <div class="reminder-section">
+                <h3>🥦 אורח חיים ומדדים (הכרחיים להצלחה)</h3>
+                <div class="reminder-item">
+                    <div class="item-details">
+                        <span>תזונה 🥗</span><span>3 ארוחות מאוזנות (דגש על חלבון וירקות)</span>
+                    </div>
+                    <div class="checkbox-container">
+                        <input type="checkbox" id="lifestyle-diet" data-time-slot="lifestyle">
+                        <label for="lifestyle-diet"></label>
+                    </div>
+                </div>
+                <div class="reminder-item">
+                    <div class="item-details">
+                        <span>שינה 🛌</span><span>7+ שעות שינה רציפה</span>
+                    </div>
+                    <div class="checkbox-container">
+                        <input type="checkbox" id="lifestyle-sleep" data-time-slot="lifestyle">
+                        <label for="lifestyle-sleep"></label>
+                    </div>
+                </div>
+                <div class="reminder-item">
+                    <div class="item-details">
+                        <span>הליכה 🚶‍♂️</span><span>15 דק׳ בחוץ (כפי שתוכנן)</span>
+                    </div>
+                    <div class="checkbox-container">
+                        <input type="checkbox" id="lifestyle-walk" data-time-slot="lifestyle">
+                        <label for="lifestyle-walk"></label>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="mood-assessment">
+                <h3>🧠 יומן רגשות יומי (בסוף היום)</h3>
+                <p style="font-size: 0.9em; color: #6c757d; margin-bottom: 10px;">דרג מ-1 (רע מאוד/נמוך) עד 5 (מצוין/גבוה)</p>
+
+                <div class="rating-item">
+                    <p>רמת **אנרגיה** כללית (1–5):</p>
+                    <div class="rating-scale rating-scale-5" id="rating-energy">
+                        <input type="radio" id="energy1" name="energy" value="1"><label for="energy1">1</label>
+                        <input type="radio" id="energy2" name="energy" value="2"><label for="energy2">2</label>
+                        <input type="radio" id="energy3" name="energy" value="3"><label for="energy3">3</label>
+                        <input type="radio" id="energy4" name="energy" value="4"><label for="energy4">4</label>
+                        <input type="radio" id="energy5" name="energy" value="5"><label for="energy5">5</label>
+                    </div>
+                </div>
+
+                <div class="rating-item">
+                    <p>רמת **חרדה** (1–5):</p>
+                    <div class="rating-scale rating-scale-5" id="rating-anxiety">
+                        <input type="radio" id="anxiety1" name="anxiety" value="1"><label for="anxiety1">1</label>
+                        <input type="radio" id="anxiety2" name="anxiety" value="2"><label for="anxiety2">2</label>
+                        <input type="radio" id="anxiety3" name="anxiety" value="3"><label for="anxiety3">3</label>
+                        <input type="radio" id="anxiety4" name="anxiety" value="4"><label for="anxiety4">4</label>
+                        <input type="radio" id="anxiety5" name="anxiety" value="5"><label for="anxiety5">5</label>
+                    </div>
+                </div>
+                
+                <div class="rating-item">
+                    <p>**איכות שינה** בלילה הקודם (1–5):</p>
+                    <div class="rating-scale rating-scale-5" id="rating-sleep">
+                        <input type="radio" id="sleep1" name="sleep" value="1"><label for="sleep1">1</label>
+                        <input type="radio" id="sleep2" name="sleep" value="2"><label for="sleep2">2</label>
+                        <input type="radio" id="sleep3" name="sleep" value="3"><label for="sleep3">3</label>
+                        <input type="radio" id="sleep4" name="sleep" value="4"><label for="sleep4">4</label>
+                        <input type="radio" id="sleep5" name="sleep" value="5"><label for="sleep5">5</label>
+                    </div>
+                </div>
+
+                <div class="rating-item">
+                    <p>**מצב רוח** כללי (1–5):</p>
+                    <div class="rating-scale rating-scale-5" id="rating-mood">
+                        <input type="radio" id="mood1" name="mood" value="1"><label for="mood1">1</label>
+                        <input type="radio" id="mood2" name="mood" value="2"><label for="mood2">2</label>
+                        <input type="radio" id="mood3" name="mood" value="3"><label for="mood3">3</label>
+                        <input type="radio" id="mood4" name="mood" value="4"><label for="mood4">4</label>
+                        <input type="radio" id="mood5" name="mood" value="5"><label for="mood5">5</label>
+                    </div>
+                </div>
+            </div>
+            
+            <button onclick="exportDailyLog()" style="
+                width: 100%; 
+                padding: 15px; 
+                margin-top: 20px; 
+                background-color: #007bff; 
+                color: white; 
+                border: none; 
+                border-radius: 8px; 
+                font-size: 1.2em;
+                cursor: pointer;
+                transition: background-color 0.2s;">
+                ייצוא יומן יומי לקובץ CSV ואפס ✅
+            </button>
+            <p id="submission-status" style="text-align: center; margin-top: 10px; font-weight: bold; color: #dc3545;"></p>
             <p style="text-align: center; color: #6c757d; font-size: 0.9em; margin-top: 15px;" id="last-reset-date">
                 הסימונים נשמרים מקומית. איפוס יתבצע אוטומטית ביום הבא.
             </p>
-        </div>
-
-    </div> <div id="myPopup" class="popup">
+        </div> </div> <div id="myPopup" class="popup">
         <div class="popup-content">
             <span class="close-btn" onclick="closePopup()">&times;</span>
             <h3 id="popupTitle"></h3>
@@ -588,75 +775,225 @@
     </div>
 
     <script>
-        // --- קוד Service Worker (הרשמה לקובץ חיצוני sw.js) ---
-        // *** חובה ליצור קובץ sw.js נפרד באותה תיקייה! ***
+        // --- קוד Service Worker (הרשמה) ---
         if ('serviceWorker' in navigator) {
           window.addEventListener('load', function() {
-            // רושם את ה-Service Worker מקובץ חיצוני
-            navigator.serviceWorker.register('/sw.js', { scope: './' }).then(function(registration) {
+            const swCode = `
+              const CACHE_NAME = 'supplements-cache-v2';
+              const urlsToCache = [
+                './',
+                'index.html' 
+              ];
+            
+              self.addEventListener('install', event => {
+                self.skipWaiting();
+                event.waitUntil(
+                  caches.open(CACHE_NAME)
+                    .then(cache => {
+                      return cache.addAll(urlsToCache);
+                    })
+                );
+              });
+            
+              self.addEventListener('fetch', event => {
+                event.respondWith(
+                  caches.match(event.request)
+                    .then(response => {
+                      if (response) {
+                        return response;
+                      }
+                      return fetch(event.request);
+                    })
+                );
+              });
+
+              self.addEventListener('notificationclick', event => {
+                event.notification.close();
+                event.waitUntil(
+                  clients.matchAll({ type: 'window', includeUncontrolled: true }).then(function(clientList) {
+                    for (let i = 0; i < clientList.length; i++) {
+                      let client = clientList[i];
+                      if ('focus' in client)
+                        return client.focus();
+                    }
+                    if (clients.openWindow)
+                      return clients.openWindow('/');
+                  })
+                );
+              });
+            `;
+
+            const swBlob = new Blob([swCode], {type: 'application/javascript'});
+            const swUrl = URL.createObjectURL(swBlob);
+
+            navigator.serviceWorker.register(swUrl).then(function(registration) {
               console.log('Service Worker registered successfully with scope: ', registration.scope);
             }, function(err) {
               console.log('Service Worker registration failed: ', err);
             });
           });
         }
-        
-        // --- קוד לוגיקה מקומית (Popups, Checkbox, PWA Reminders) ---
 
+        // --- מפתחות שמירה מקומית (Local Storage Keys) ---
         const CHECKBOX_KEY = 'dailyCheckboxesState';
+        const RATING_KEY = 'dailyRatingState';
         const LAST_RESET_KEY = 'lastResetDate';
+        const DAILY_LOG_KEY = 'historicalDailyLog'; // מפתח חדש ליומן ההיסטורי
 
-        // 1. שמירה וטעינת מצב הצ'קבוקסים
+        // 1. שמירה וטעינת מצב
         function saveState() {
-            const state = {};
+            // שמירת צ'קבוקסים
+            const checkboxState = {};
             document.querySelectorAll('.reminder-item input[type="checkbox"]').forEach(checkbox => {
-                state[checkbox.id] = checkbox.checked;
+                checkboxState[checkbox.id] = checkbox.checked;
             });
-            localStorage.setItem(CHECKBOX_KEY, JSON.stringify(state));
+            localStorage.setItem(CHECKBOX_KEY, JSON.stringify(checkboxState));
+            
+            // שמירת דירוגים
+            const ratingState = {};
+            document.querySelectorAll('.mood-assessment input[type="radio"]:checked').forEach(radio => {
+                ratingState[radio.name] = radio.value;
+            });
+            localStorage.setItem(RATING_KEY, JSON.stringify(ratingState));
         }
 
         function loadState() {
-            const state = JSON.parse(localStorage.getItem(CHECKBOX_KEY));
-            if (state) {
-                document.querySelectorAll('.reminder-item input[type="checkbox"]').forEach(checkbox => {
-                    checkbox.checked = state[checkbox.id] || false;
-                    checkbox.addEventListener('change', () => {
-                        saveState();
-                        triggerVibration(); // רטט קצר לאחר סימון
-                    });
+            // טעינת צ'קבוקסים + הוספת מאזינים
+            const checkboxState = JSON.parse(localStorage.getItem(CHECKBOX_KEY));
+            document.querySelectorAll('.reminder-item input[type="checkbox"]').forEach(checkbox => {
+                if (checkboxState) {
+                    checkbox.checked = checkboxState[checkbox.id] || false;
+                }
+                checkbox.addEventListener('change', () => {
+                    saveState();
+                    triggerVibration(); 
                 });
-            } else {
-                // אם אין מצב שמור, עדיין יש להוסיף מאזינים
-                document.querySelectorAll('.reminder-item input[type="checkbox"]').forEach(checkbox => {
-                    checkbox.addEventListener('change', () => {
-                        saveState();
-                        triggerVibration();
-                    });
-                });
-            }
-            checkAndResetDaily();
+            });
+            
+            // טעינת דירוגים + הוספת מאזינים
+            const ratingState = JSON.parse(localStorage.getItem(RATING_KEY));
+            document.querySelectorAll('.mood-assessment input[type="radio"]').forEach(radio => {
+                if (ratingState && ratingState[radio.name] === radio.value) {
+                    radio.checked = true;
+                }
+                radio.addEventListener('change', saveState);
+            });
+
+            checkAndResetDailyLocal();
         }
 
-        // 2. איפוס יומי
-        function checkAndResetDaily() {
+        // 2. איפוס יומי מקומי (או לאחר ייצוא מוצלח)
+        function checkAndResetDailyLocal(forceReset = false) {
             const today = new Date().toDateString();
             const lastReset = localStorage.getItem(LAST_RESET_KEY);
             const dateDisplay = document.getElementById('last-reset-date');
 
-            if (lastReset !== today) {
-                // איפוס
+            if (forceReset || lastReset !== today) {
+                // רק אם זה איפוס אוטומטי ביום חדש (לאחר ייצוא), נשמור את היומן של אתמול.
+                if (!forceReset && lastReset && lastReset !== today) {
+                    saveCurrentLogToHistory(lastReset); 
+                }
+                
+                // איפוס צ'קבוקסים
                 document.querySelectorAll('.reminder-item input[type="checkbox"]').forEach(checkbox => {
                     checkbox.checked = false;
                 });
-                saveState();
+                // איפוס דירוגים
+                document.querySelectorAll('.mood-assessment input[type="radio"]').forEach(radio => {
+                    radio.checked = false;
+                });
+                
+                saveState(); // שמירת האיפוס המקומי
                 localStorage.setItem(LAST_RESET_KEY, today);
                 dateDisplay.innerHTML = `הסימונים אופסו אוטומטית עבור יום ${today}.`;
             } else {
-                 dateDisplay.innerHTML = `הסימונים נשמרו עבור יום ${today}. איפוס יתבצע אוטומטית מחר.`;
+                 dateDisplay.innerHTML = `הסימונים נשמרו עבור יום ${today}. איפוס יתבצע אוטומטית מחר, או בלחיצת כפתור הייצוא.`;
             }
         }
         
-        // 3. לוגיקת Pop-up
+        // --- פונקציות חדשות לניהול היסטוריה וייצוא ---
+        
+        // פונקציה לשמירת הנתונים הנוכחיים ליומן ההיסטורי
+        function saveCurrentLogToHistory(logDate) {
+            const checkboxState = JSON.parse(localStorage.getItem(CHECKBOX_KEY)) || {};
+            const ratingState = JSON.parse(localStorage.getItem(RATING_KEY)) || {};
+            
+            const currentLog = {
+                date: logDate,
+                checkboxes: checkboxState,
+                ratings: ratingState
+            };
+            
+            let historicalLog = JSON.parse(localStorage.getItem(DAILY_LOG_KEY)) || [];
+            
+            // ודא שאין כפילויות לפני הוספה (אם יום מסוים כבר נשמר)
+            const existingIndex = historicalLog.findIndex(log => log.date === logDate);
+            if (existingIndex > -1) {
+                historicalLog[existingIndex] = currentLog; // דריסה
+            } else {
+                historicalLog.push(currentLog);
+            }
+            
+            localStorage.setItem(DAILY_LOG_KEY, JSON.stringify(historicalLog));
+        }
+
+        // פונקציה לייצוא הנתונים ההיסטוריים כקובץ CSV
+        function exportDailyLog() {
+            const statusDiv = document.getElementById('submission-status');
+            statusDiv.textContent = 'מייצא...';
+            
+            // שמירת הנתונים הנוכחיים להיסטוריה לפני האיפוס (עם התאריך של היום)
+            const todayLog = new Date().toDateString();
+            saveCurrentLogToHistory(todayLog); 
+            
+            const historicalLog = JSON.parse(localStorage.getItem(DAILY_LOG_KEY)) || [];
+
+            if (historicalLog.length === 0) {
+                statusDiv.textContent = '❌ אין נתונים לייצוא.';
+                setTimeout(() => { statusDiv.textContent = ''; }, 3000);
+                return;
+            }
+
+            // הגדרת כותרות העמודות (Header Row)
+            const checkboxIds = Array.from(document.querySelectorAll('.reminder-item input[type="checkbox"]')).map(cb => cb.id);
+            const ratingNames = ['energy', 'anxiety', 'sleep', 'mood'];
+            const header = ['Date', ...checkboxIds, ...ratingNames].join(',');
+
+            // בניית שורות ה-CSV
+            const rows = historicalLog.map(log => {
+                const date = log.date;
+                
+                // ערכי הצ'קבוקס: 1 אם true, 0 אם false
+                const checkboxValues = checkboxIds.map(id => log.checkboxes[id] ? '1' : '0');
+                
+                // ערכי הדירוגים (מ-1 עד 5)
+                const ratingValues = ratingNames.map(name => log.ratings[name] || '0'); // 0 אם לא סומן
+
+                return [date, ...checkboxValues, ...ratingValues].join(',');
+            });
+
+            // יצירת תוכן ה-CSV המלא
+            const csvContent = [header, ...rows].join('\n');
+            
+            // הורדת הקובץ
+            const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+            const link = document.createElement("a");
+            const url = URL.createObjectURL(blob);
+            
+            link.setAttribute("href", url);
+            link.setAttribute("download", `DailyLog_Export_${new Date().toISOString().slice(0, 10)}.csv`);
+            link.style.visibility = 'hidden';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            
+            statusDiv.textContent = '✔️ היומן יוצא בהצלחה לקובץ CSV! (הנתונים הנוכחיים אופסו)';
+            checkAndResetDailyLocal(true); // איפוס מאולץ לאחר ייצוא
+            triggerVibration();
+            setTimeout(() => { statusDiv.textContent = ''; }, 5000);
+        }
+
+        // --- קוד לוגיקה מקומית (Popups, PWA Reminders, Vibration) ---
         const popup = document.getElementById('myPopup');
         const popupTitle = document.getElementById('popupTitle');
         const popupText = document.getElementById('popupText');
@@ -671,93 +1008,44 @@
             popup.style.display = 'none';
         }
 
-        // סגירת הפופאפ בלחיצה מחוץ לתוכן
         window.onclick = function(event) {
             if (event.target == popup) {
                 closePopup();
             }
         }
-        
-        // 4. קוד PWA: Notifications ו-Vibration
+
+        function triggerVibration() {
+            if ('vibrate' in navigator) {
+                navigator.vibrate([200, 100, 200]); 
+            }
+        }
 
         const reminders = [
             { time: "06:30", title: "זמן תוספים: בוקר", body: "L-Tyrosine – על בטן ריקה!" },
             { time: "07:45", title: "זמן תוספים", body: "ברברין – לפני ארוחת הבוקר." },
             { time: "08:00", title: "זמן תוספים", body: "קומפלקס ויטמיני B – עם ארוחת הבוקר." },
             { time: "10:00", title: "זמן סיבים: פעם 1", body: "פסיליום – עם המון מים!" },
-            { time: "12:00", timeOffset: 1, title: "זמן תוספים: צהריים", body: "אומגה 3 – עם ארוחת צהריים (הארוכל הגדולה)." },
+            { time: "12:00", timeOffset: 1, title: "זמן תוספים: צהריים", body: "אומגה 3 – עם ארוחת צהריים (הארוחה הגדולה)." },
             { time: "15:00", timeOffset: 2, title: "זמן הרגעה", body: "אשווגנדה + L-תיאנין – להורדת קורטיזול." },
             { time: "19:00", timeOffset: 3, title: "זמן סיבים: פעם 2", body: "פסיליום – עם המון מים!" },
             { time: "21:00", timeOffset: 4, title: "זמן שינה", body: "מגנזיום גליצינאט + טאורין – להירדמות קלה." }
         ];
 
-        // 4א. בקשת הרשאה (נקרא ב-body onload)
         function requestNotificationPermission() {
             if ('Notification' in window && Notification.permission !== 'granted' && Notification.permission !== 'denied') {
                 Notification.requestPermission().then(permission => {
                     if (permission === 'granted') {
                         console.log('Notification permission granted.');
-                        setupPwaReminders(); // הפעלת התזמון רק לאחר קבלת הרשאה
                     } else {
                         console.log('Notification permission denied.');
                     }
                 });
-            } else if (Notification.permission === 'granted') {
-                 setupPwaReminders();
             }
-        }
-
-        // 4ב. הפעלת רטט
-        function triggerVibration() {
-            // רטט מורכב שמדמה התראה
-            if ('vibrate' in navigator) {
-                navigator.vibrate([200, 100, 200]); 
-            }
-        }
-
-        // 4ג. הצגת התראה
-        function showPwaReminder(title, body) {
-            if (Notification.permission === 'granted') {
-                // שימוש ב-Service Worker להצגת התראות רקע
-                if ('serviceWorker' in navigator && navigator.serviceWorker.controller) {
-                    navigator.serviceWorker.ready.then(registration => {
-                        registration.showNotification(title, {
-                            body: body,
-                            icon: 'icon-192.png', // משתמש בקובץ האייקון החדש
-                            vibrate: [200, 100, 200]
-                        });
-                    });
-                } else {
-                    // fallback להתראה רגילה בדפדפן
-                    new Notification(title, { body: body });
-                    triggerVibration();
-                }
-            } 
-        }
-
-        // 4ד. מנגנון תזמון ה-PWA
-        // הערה: תזמון זה עובד רק כאשר הדפדפן/PWA פתוח או פועל ברקע.
-        function setupPwaReminders() {
-            const interval = 60000; // בדיקה כל דקה
-            
-            setInterval(() => {
-                const now = new Date();
-                const currentHour = now.getHours();
-                const currentMinute = now.getMinutes();
-                const currentTime = `${String(currentHour).padStart(2, '0')}:${String(currentMinute).padStart(2, '0')}`;
-
-                reminders.forEach(reminder => {
-                    // בדיקה אם השעה הנוכחית תואמת את זמן התזכורת
-                    if (reminder.time === currentTime) {
-                        showPwaReminder(reminder.title, reminder.body);
-                        console.log(`PWA Reminder fired: ${reminder.title}`);
-                    }
-                });
-            }, interval);
         }
 
         // --- אתחול ---
         window.addEventListener('load', loadState);
+
     </script>
 </body>
 </html>
