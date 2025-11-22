@@ -234,16 +234,16 @@
             color: #555;
         }
         
-        /* כפתור ייצוא */
+        /* כפתורי ייצוא ושמירה */
         button {
             width: 100%; 
-            padding: 15px; 
-            margin-top: 20px; 
-            background-color: #17a2b8; /* צבע ראשי חדש */
+            padding: 12px; /* הקטנה קלה */
+            margin-top: 10px; 
+            background-color: #17a2b8; 
             color: white; 
             border: none; 
             border-radius: 8px; 
-            font-size: 1.2em;
+            font-size: 1.1em;
             cursor: pointer;
             transition: background-color 0.2s;
         }
@@ -453,9 +453,13 @@
                 </div>
             </div>
             
-            <button onclick="exportDailyLog()">
-                ייצוא יומן יומי לקובץ CSV ואפס ✅
+            <button onclick="saveAndResetOnly()" style="background-color: #28a745; margin-bottom: 5px;">
+                שמור יומן ואיפוס (ללא הורדת CSV) 💾
             </button>
+            <button onclick="exportDailyLog()">
+                ייצוא כל ההיסטוריה לקובץ CSV ואפס ✅
+            </button>
+
             <p id="submission-status" style="text-align: center; margin-top: 10px; font-weight: bold; color: #dc3545;"></p>
             <p style="text-align: center; color: #6c757d; font-size: 0.9em; margin-top: 15px;" id="last-reset-date">
                 הסימונים נשמרים מקומית. איפוס יתבצע אוטומטית ביום הבא.
@@ -490,7 +494,7 @@
         if ('serviceWorker' in navigator) {
           window.addEventListener('load', function() {
             const swCode = `
-              const CACHE_NAME = 'supplements-cache-v2';
+              const CACHE_NAME = 'supplements-cache-v3'; // עדכון גרסה
               const urlsToCache = [
                 './',
                 'index.html' 
@@ -601,6 +605,7 @@
 
             if (forceReset || lastReset !== today) {
                 if (!forceReset && lastReset && lastReset !== today) {
+                    // אם יום חדש התחיל ויש נתונים לא שמורים, שמור אותם לפני האיפוס
                     saveCurrentLogToHistory(lastReset); 
                 }
                 
@@ -617,11 +622,11 @@
                 localStorage.setItem(LAST_RESET_KEY, today);
                 dateDisplay.innerHTML = `הסימונים אופסו אוטומטית עבור יום ${today}.`;
             } else {
-                 dateDisplay.innerHTML = `הסימונים נשמרו עבור יום ${today}. איפוס יתבצע אוטומטית מחר, או בלחיצת כפתור הייצוא.`;
+                 dateDisplay.innerHTML = `הסימונים נשמרו עבור יום ${today}. איפוס יתבצע אוטומטית מחר, או בלחיצת כפתור השמירה/ייצוא.`;
             }
         }
         
-        // --- פונקציות חדשות לניהול היסטוריה וייצוא ---
+        // --- פונקציות לניהול היסטוריה וייצוא ---
         
         function saveCurrentLogToHistory(logDate) {
             const checkboxState = JSON.parse(localStorage.getItem(CHECKBOX_KEY)) || {};
@@ -635,6 +640,7 @@
             
             let historicalLog = JSON.parse(localStorage.getItem(DAILY_LOG_KEY)) || [];
             
+            // מניעת כפילות: עדכון רשומה קיימת אם התאריך זהה
             const existingIndex = historicalLog.findIndex(log => log.date === logDate);
             if (existingIndex > -1) {
                 historicalLog[existingIndex] = currentLog;
@@ -645,12 +651,33 @@
             localStorage.setItem(DAILY_LOG_KEY, JSON.stringify(historicalLog));
         }
 
-        // --- פונקציית הייצוא המתוקנת כולל מחיקת נתונים ---
+        // --- פונקציית שמירה ואיפוס בלבד (הכפתור הירוק) ---
+        function saveAndResetOnly() {
+            const statusDiv = document.getElementById('submission-status');
+            statusDiv.textContent = 'שומר ומאפס...';
+            
+            // שמירת הנתונים הנוכחיים להיסטוריה
+            const todayLog = new Date().toDateString();
+            saveCurrentLogToHistory(todayLog); 
+            
+            // מחיקת הנתונים היומיומיים לאחר השמירה
+            localStorage.removeItem(CHECKBOX_KEY);
+            localStorage.removeItem(RATING_KEY);
+
+            checkAndResetDailyLocal(true); // איפוס ויזואלי של הפורם
+            
+            statusDiv.textContent = '✔️ היומן היומי נשמר בהיסטוריה ואופס בהצלחה.';
+            
+            triggerVibration();
+            setTimeout(() => { statusDiv.textContent = ''; }, 5000);
+        }
+
+        // --- פונקציית הייצוא (הכפתור הכחול) ---
         function exportDailyLog() {
             const statusDiv = document.getElementById('submission-status');
             statusDiv.textContent = 'מייצא...';
             
-            // 1. שמירת הנתונים הנוכחיים להיסטוריה לפני האיפוס
+            // 1. שמירת הנתונים הנוכחיים להיסטוריה לפני הייצוא
             const todayLog = new Date().toDateString();
             saveCurrentLogToHistory(todayLog); 
             
