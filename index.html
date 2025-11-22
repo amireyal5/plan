@@ -88,7 +88,7 @@
             border-bottom: none;
         }
         
-        /* מונחים לחיצים */
+        /* מונחים לחיצים (בקטע המבוא והיעדים) */
         .clickable-term {
             font-weight: bold;
             color: #dc3545; /* צבע אדום להדגשה שהמונח לחיץ */
@@ -164,24 +164,28 @@
             color: #444;
         }
 
-        /* --- התיקון ליישור RTL/LTR --- */
+        /* --- התיקון ליישור RTL/LTR ולעיצוב קישור --- */
         .item-details {
             display: flex; 
             align-items: center;
-            /* הופך את הסדר לרכיב: [שעה] [תוסף] (מיושר לפי RTL) */
-            flex-direction: row-reverse; 
+            /* שינוי: סדר ברירת המחדל (row) ייתן [שם תוסף] [שעה] ביחס ל-RTL */
+            flex-direction: row; 
         }
-
-        .item-details span:not(.time-slot) { /* שם התוסף */
-            margin-left: 10px; /* מרווח קטן בין השם לשעה */
+        
+        /* עיצוב שם התוסף כקישור */
+        .item-details .supplement-name { 
+            font-weight: 700;
+            color: #17a2b8; /* צבע כחול */
+            cursor: pointer;
+            border-bottom: 1px solid #17a2b8; /* פס תחתון של קישור */
+            margin-left: 10px; /* מרווח בין שם התוסף לשעה */
         }
         
         .item-details .time-slot {
             font-weight: 700;
-            color: #007bff;
-            white-space: nowrap; /* מונע שבירת שורה לשעה */
-            /* כיוון הטקסט של השעה תמיד LTR כדי למנוע היפוך ספרות */
-            direction: ltr; 
+            color: #dc3545; /* צבע אדום לזמן */
+            white-space: nowrap; 
+            direction: ltr; /* לוודא שהשעה עצמה לא מתהפכת */
         }
         /* ---------------------------------- */
 
@@ -467,23 +471,85 @@
             <div class="reminder-section">
                 <h3>💊 תוספים (וידוא לקיחה)</h3>
                 
-                <div class="reminder-item"><div class="item-details"><span class="time-slot">06:30</span><span>ל-טירוזין</span></div><div class="checkbox-container"><input type="checkbox" id="morning-tyrosine"><label for="morning-tyrosine"></label></div></div>
+                <div class="reminder-item">
+                    <div class="item-details">
+                        <span class="supplement-name" onclick="showPopup('ל-טירוזין 500 מ״ג', 'תפקיד: חומר גלם לייצור **דופמין** ואדרנלין. נותן אנרגיה ומקדם מוטיבציה.\n**חשוב**: יש ליטול על בטן ריקה.\nזמן: **06:30**.')">ל-טירוזין</span>
+                        <span class="time-slot">06:30</span>
+                    </div>
+                    <div class="checkbox-container"><input type="checkbox" id="morning-tyrosine"><label for="morning-tyrosine"></label></div>
+                </div>
                 
-                <div class="reminder-item"><div class="item-details"><span class="time-slot">07:45</span><span>ברברין</span></div><div class="checkbox-container"><input type="checkbox" id="morning-berberine"><label for="morning-berberine"></label></div></div>
-                <div class="reminder-item"><div class="item-details"><span class="time-slot">08:00</span><span>קומפלקס ויטמיני B</span></div><div class="checkbox-container"><input type="checkbox" id="morning-bcomplex"><label for="morning-bcomplex"></label></div></div>
-                <div class="reminder-item"><div class="item-details"><span class="time-slot">10:00</span><span>פסיליום (1)</span></div><div class="checkbox-container"><input type="checkbox" id="morning-psyllium"><label for="morning-psyllium"></label></div></div>
-                <div class="reminder-item"><div class="item-details"><span class="time-slot">12:00</span><span>אומגה 3</span></div><div class="checkbox-container"><input type="checkbox" id="noon-omega"><label for="noon-omega"></label></div></div>
-                <div class="reminder-item"><div class="item-details"><span class="time-slot">15:00</span><span>אשווגנדה + ל-תיאנין</span></div><div class="checkbox-container"><input type="checkbox" id="noon-ashwagandha"><label for="noon-ashwagandha"></label></div></div>
-                <div class="reminder-item"><div class="item-details"><span class="time-slot">19:00</span><span>פסיליום (2)</span></div><div class="checkbox-container"><input type="checkbox" id="evening-psyllium"><label for="evening-psyllium"></label></div></div>
-                <div class="reminder-item"><div class="item-details"><span class="time-slot">21:00</span><span>מגנזיום גליצינאט</span></div><div class="checkbox-container"><input type="checkbox" id="evening-magnesium"><label for="evening-magnesium"></label></div></div>
-                <div class="reminder-item"><div class="item-details"><span class="time-slot">21:00</span><span>טאורין</span></div><div class="checkbox-container"><input type="checkbox" id="evening-taurine"><label for="evening-taurine"></label></div></div>
+                <div class="reminder-item">
+                    <div class="item-details">
+                        <span class="supplement-name" onclick="showPopup('ברברין אדוונסד', 'תפקיד: איזון סוכר בדם וסיוע בהורדת כולסטרול רע (LDL).\n**חשוב**: על קיבה יחסית ריקה.\nזמן: **07:45**, 15 דק׳ לפני אוכל.')">ברברין</span>
+                        <span class="time-slot">07:45</span>
+                    </div>
+                    <div class="checkbox-container"><input type="checkbox" id="morning-berberine"><label for="morning-berberine"></label></div>
+                </div>
+
+                <div class="reminder-item">
+                    <div class="item-details">
+                        <span class="supplement-name" onclick="showPopup('קומפלקס ויטמיני B', 'תפקיד: ייצור אנרגיה, תפקוד מערכת העצבים וליצירת מוליכים עצביים.\n**חשוב**: יש ליטול עם אוכל.\nזמן: **08:00**, עם ארוחת הבוקר.')">קומפלקס ויטמיני B</span>
+                        <span class="time-slot">08:00</span>
+                    </div>
+                    <div class="checkbox-container"><input type="checkbox" id="morning-bcomplex"><label for="morning-bcomplex"></label></div>
+                </div>
+
+                <div class="reminder-item">
+                    <div class="item-details">
+                        <span class="supplement-name" onclick="showPopup('פסיליום (פעם 1)', 'תפקיד: סיבים תזונתיים לאיזון שומנים (לכידת כולסטרול במעי) וסוכר.\n**חובה**: לערבב במים ולשתות **מיד**. לשתות עוד מים לאחר מכן.\nזמן: **10:00**, בין ארוחות.')">פסיליום (1)</span>
+                        <span class="time-slot">10:00</span>
+                    </div>
+                    <div class="checkbox-container"><input type="checkbox" id="morning-psyllium"><label for="morning-psyllium"></label></div>
+                </div>
+
+                <div class="reminder-item">
+                    <div class="item-details">
+                        <span class="supplement-name" onclick="showPopup('אומגה 3 משולשת עוצמה', 'תפקיד: הורדת טריגליצרידים, נוגד דלקת חזק, תמיכה בלב ובמצב הרוח.\n**חשוב**: עם הארוחה העשירה ביותר בשומן.\nזמן: **12:00**, עם ארוחת צהריים.')">אומגה 3</span>
+                        <span class="time-slot">12:00</span>
+                    </div>
+                    <div class="checkbox-container"><input type="checkbox" id="noon-omega"><label for="noon-omega"></label></div>
+                </div>
+
+                <div class="reminder-item">
+                    <div class="item-details">
+                        <span class="supplement-name" onclick="showPopup('אשווגנדה KSM-66 + L-תיאנין', 'תפקיד: צמח אדפטוגני המאזן את הורמון הסטרס (קורטיזול), מפחית מתח וחרדה.\n**התאמה**: בשעה קבועה.\nזמן: **15:00**, אחר הצהריים.')">אשווגנדה + ל-תיאנין</span>
+                        <span class="time-slot">15:00</span>
+                    </div>
+                    <div class="checkbox-container"><input type="checkbox" id="noon-ashwagandha"><label for="noon-ashwagandha"></label></div>
+                </div>
+
+                <div class="reminder-item">
+                    <div class="item-details">
+                        <span class="supplement-name" onclick="showPopup('פסיליום (פעם 2)', 'תפקיד: סיבים תזונתיים לאיזון שומנים וסוכר.\n**חובה**: לערבב במים ולשתות **מיד**. לשתות עוד מים לאחר מכן.\nזמן: **19:00**, לפני תוספי שינה.')">פסיליום (2)</span>
+                        <span class="time-slot">19:00</span>
+                    </div>
+                    <div class="checkbox-container"><input type="checkbox" id="evening-psyllium"><label for="evening-psyllium"></label></div>
+                </div>
+
+                <div class="reminder-item">
+                    <div class="item-details">
+                        <span class="supplement-name" onclick="showPopup('מגנזיום גליצינאט', 'תפקיד: הרפיית שרירים, הורדת עוררות עצבית וסיוע בהכנה לשינה עמוקה.\n**הערה**: מומלץ להרגעה.\nזמן: **21:00**, לפני השינה.')">מגנזיום גליצינאט</span>
+                        <span class="time-slot">21:00</span>
+                    </div>
+                    <div class="checkbox-container"><input type="checkbox" id="evening-magnesium"><label for="evening-magnesium"></label></div>
+                </div>
+
+                <div class="reminder-item">
+                    <div class="item-details">
+                        <span class="supplement-name" onclick="showPopup('טאורין', 'תפקיד: מגביר פעילות GABA (מוליך עצבי מרגיע), מסייע בהפחתת דאגנות ושיפור ההירדמות.\n**נטילה**: יחד עם המגנזיום.\nזמן: **21:00**.')">טאורין</span>
+                        <span class="time-slot">21:00</span>
+                    </div>
+                    <div class="checkbox-container"><input type="checkbox" id="evening-taurine"><label for="evening-taurine"></label></div>
+                </div>
+                
             </div>
             
             <div class="reminder-section">
                 <h3>🏃‍♂️ אורח חיים ומדדים</h3>
-                <div class="reminder-item"><div class="item-details"><span>תזונה 🥗</span><span>3 ארוחות מאוזנות</span></div><div class="checkbox-container"><input type="checkbox" id="lifestyle-diet"><label for="lifestyle-diet"></label></div></div>
-                <div class="reminder-item"><div class="item-details"><span>שינה 🛌</span><span>7+ שעות שינה</span></div><div class="checkbox-container"><input type="checkbox" id="lifestyle-sleep"><label for="lifestyle-sleep"></label></div></div>
-                <div class="reminder-item"><div class="item-details"><span>הליכה 🚶‍♂️</span><span>15 דק׳ בחוץ (15:30)</span></div><div class="checkbox-container"><input type="checkbox" id="lifestyle-walk"><label for="lifestyle-walk"></label></div></div>
+                <div class="reminder-item"><div class="item-details"><span>תזונה 🥗</span><span class="time-slot">3 ארוחות מאוזנות</span></div><div class="checkbox-container"><input type="checkbox" id="lifestyle-diet"><label for="lifestyle-diet"></label></div></div>
+                <div class="reminder-item"><div class="item-details"><span>שינה 🛌</span><span class="time-slot">7+ שעות שינה</span></div><div class="checkbox-container"><input type="checkbox" id="lifestyle-sleep"><label for="lifestyle-sleep"></label></div></div>
+                <div class="reminder-item"><div class="item-details"><span>הליכה 🚶‍♂️</span><span class="time-slot">15 דק׳ בחוץ (15:30)</span></div><div class="checkbox-container"><input type="checkbox" id="lifestyle-walk"><label for="lifestyle-walk"></label></div></div>
             </div>
 
 
